@@ -1,5 +1,6 @@
 import os
 import json
+import random
 import requests
 from datetime import datetime, timezone
 from dotenv import load_dotenv
@@ -83,8 +84,11 @@ def _deterministic_next_question(employee, all_questions, answer_history):
     # 4) Otherwise, just return the first question as a fallback
     return all_questions[0]
 
+# def get_technical_question(employee, all_questions, answer_history):
 
-def get_ai_question(employee, all_questions, answer_history):
+
+
+def get_general_question(employee, all_questions, answer_history):
     """
     Use OpenAI to choose the next best question by ID following the priority:
     1) Incorrect Technical answers
@@ -211,7 +215,12 @@ def get_question():
 
     employee_history = [a for a in answers if a.get("employee_id") == employee_id]
 
-    next_question = get_ai_question(employee, questions, employee_history)
+    is_technical_question = random.random()
+    if is_technical_question >= 0.5:
+        next_question = get_technical_question(employee, questions, employee_history)
+    else:
+        next_question = get_general_question(employee, questions, employee_history)
+
     if not next_question:
         return jsonify({"error": "No questions available"}), 404
 
