@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function App() {
   const [employeeIdInput, setEmployeeIdInput] = useState('')
@@ -83,23 +84,25 @@ export default function App() {
     }
   }
 
-  async function handleSubmitAnswer(result) {
+  async function handleSubmitAnswer(answer) {
     if (!currentEmployee || !currentQuestion) return
     setIsLoadingSubmission(true)
 
     try {
-      const res = await fetch('http://127.0.0.1:5000/submit-answer', {
+      const res = await fetch('http://127.0.0.1:5000/get-feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           employee_id: currentEmployee.id,
           question: currentQuestion.question,
-          result: result
+          answer: answer,
+          options: currentQuestion.options
         })
       })
       if (!res.ok) throw new Error('Failed to submit answer')
-      setFeedback("Thank for answering the question")
-      await write_summary(result)
+      const feedback = await res.json()
+      setFeedback(feedback.text)
+      await write_summary(answer)
     } catch (err) {
       setError('Failed to submit answer.')
     } finally {
@@ -107,7 +110,7 @@ export default function App() {
     }
   }
 
-  async function write_summary(result) {
+  async function write_summary(answer) {
     try {
       const res = await fetch('http://127.0.0.1:5000/write-summary', {
         method: 'POST',
@@ -115,7 +118,7 @@ export default function App() {
         body: JSON.stringify({
           employee_id: currentEmployee.id,
           question: currentQuestion.question,
-          result: result
+          answer: answer
         })
       }) 
       if (!res.ok) throw new Error('Failed to submit answer')
@@ -251,7 +254,7 @@ export default function App() {
         <div className="card">
           <div className="header">
             <h2>Feedback for {currentEmployee.name}</h2>
-            {isLoadingSubmission && <button className="secondary" disabled>Loading...</button>}
+            {isLoadingSubmission && <button className="secondary" disabled><CircularProgress size="1.5rem" /></button>}
             {!isLoadingSubmission && <button className="secondary" onClick={handleLogout}>❌</button>}
           </div>
           <h3 className="question-text">{feedback}</h3>
