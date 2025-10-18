@@ -65,7 +65,7 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           employee_id: currentEmployee.id,
-          question_id: currentQuestion.id,
+          question: currentQuestion.text,
           result
         })
       })

@@ -33,6 +33,10 @@ def _path(filename: str) -> str:
 def read_data(filename: str):
     with open(_path(filename), "r", encoding="utf-8") as f:
         return json.load(f)
+    
+def read_txt(filename: str):
+    with open(_path(filename), "r", encoding="utf-8") as f:
+        return f.read()
 
 
 def write_data(filename: str, data):
@@ -41,47 +45,6 @@ def write_data(filename: str, data):
 
 
 def _deterministic_next_question(employee, all_questions, answer_history):
-    if not all_questions:
-        return None
-
-    # Build a map of last result per question id for this employee
-    answers_by_qid = {}
-    for ans in sorted(answer_history, key=lambda a: a.get("answered_at", "")):
-        qid = ans.get("question_id")
-        if qid is None:
-            continue
-        answers_by_qid[qid] = ans.get("result")
-
-    answered_ids = set(answers_by_qid.keys())
-
-    # 1) Prioritize incorrectly answered Technical questions (by lowest id)
-    incorrect_technical = [
-        q for q in all_questions
-        if q.get("type") == "Technical" and answers_by_qid.get(q.get("id")) == "Incorrect"
-    ]
-    incorrect_technical.sort(key=lambda q: q.get("id", 0))
-    if incorrect_technical:
-        return incorrect_technical[0]
-
-    # 2) New General questions (not yet answered)
-    new_general = [
-        q for q in all_questions
-        if q.get("type") == "General" and q.get("id") not in answered_ids
-    ]
-    new_general.sort(key=lambda q: q.get("id", 0))
-    if new_general:
-        return new_general[0]
-
-    # 3) New Technical questions (not yet answered)
-    new_technical = [
-        q for q in all_questions
-        if q.get("type") == "Technical" and q.get("id") not in answered_ids
-    ]
-    new_technical.sort(key=lambda q: q.get("id", 0))
-    if new_technical:
-        return new_technical[0]
-
-    # 4) Otherwise, just return the first question as a fallback
     return all_questions[0]
 
 # def get_technical_question(employee, all_questions, answer_history):
@@ -111,15 +74,7 @@ def get_general_question(employee, all_questions, answer_history):
         ]
 
         # Build a compact answer history
-        history = [
-            {
-                "question_id": a.get("question_id"),
-                "result": a.get("result"),
-                "answered_at": a.get("answered_at"),
-            }
-            for a in answer_history
-        ]
-
+        history = answer_history
         system_message = (
             "You are an assistant that selects the next best question ID for an adaptive employee quiz. "
             "Strictly output only the numeric question ID with no extra text. "
@@ -190,6 +145,66 @@ def get_general_question(employee, all_questions, answer_history):
     except Exception:
         # Any AI error -> deterministic fallback
         return _deterministic_next_question(employee, all_questions, answer_history)
+    
+def get_answer_summary(employee, curr_question, result, old_answer_summary):
+    try:
+        system_message = read_txt("prompts\\answer_summary_prompt.txt")
+
+        user_message = {
+            "employee": employee,
+            "curr_question": curr_question,
+            "result": result,
+            "old_answer_summary": old_answer_summary,
+        }
+
+        data = {
+            "model": MODEL,
+            "messages": [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": json.dumps(user_message)},
+            ],
+        }
+
+        res = None
+        try:
+            # Use json.dumps() to convert the Python dictionary to a JSON string for the body
+            response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
+            
+            # Check for HTTP errors (like 401 Unauthorized or 404 Not Found)
+            response.raise_for_status() 
+
+            # --- 5. PROCESS RESPONSE ---
+            response_json = response.json()
+            
+            # The actual completion message is located in the 'choices' array
+            assistant_reply = response_json['choices'][0]['message']['content']        
+            
+            print("\n--- Model Response ---")
+            print(assistant_reply)
+            print("\n--- Usage Info ---")
+            print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
+
+            # Parse an integer ID from the response
+            # Prefer exact integer; fall back to extracting first integer-like token
+            res = assistant_reply
+
+        except requests.exceptions.HTTPError as e:
+            print(f"\n❌ HTTP Error: {e}")
+            if response.status_code == 401:
+                print("ACTION REQUIRED: Check your Ocp-Apim-Subscription-Key for the Azure API Gateway.")
+            else:
+                print(f"Server response:\n{response.text}")
+        except requests.exceptions.RequestException as e:
+            print(f"\n❌ An error occurred during the network request: {e}")
+
+        if res is not None:
+            return res
+
+        return old_answer_summary
+
+    except Exception as e:
+        print(f"Exception in get_answer_summary: {e}")
+        return old_answer_summary
 
 
 @app.route("/get-employees", methods=["GET"])
@@ -208,19 +223,18 @@ def get_question():
     path = "data\\employees\\" + employee_id
     employee = read_data(path + "\\profile.json")
     questions = read_data(path + "\\question.json")
-    answers = read_data(path + "\\answers.json")
+    
+    answer_summary = read_txt(path + "\\answer_summary.txt")
 
     if not employee:
         print(f"Employee ID {employee_id} not found in profile data.")
         return jsonify({"error": "Employee not found"}), 404
 
-    employee_history = [a for a in answers if a.get("employee_id") == employee_id]
-
     is_technical_question = random.random()
-    if is_technical_question >= 0.5:
-        next_question = get_technical_question(employee, questions, employee_history)
-    else:
-        next_question = get_general_question(employee, questions, employee_history)
+    # if is_technical_question >= 0.5:
+    #     next_question = get_technical_question(employee, questions, employee_history)
+    # else:
+    next_question = get_general_question(employee, questions, answer_summary)
 
     if not next_question:
         print("No questions available to select.")
@@ -233,25 +247,18 @@ def get_question():
 def submit_answer():
     body = request.get_json(silent=True) or {}
     employee_id = body.get("employee_id")
-    question_id = body.get("question_id")
+    question = body.get("question")
     result = body.get("result")
 
-    if not employee_id or question_id is None or result is None:
-        return jsonify({"error": "employee_id, question_id, and result are required"}), 400
+    if not employee_id or question is None or result is None:
+        return jsonify({"error": "employee_id, question, and result are required"}), 400
 
     path = "data\\employees\\" + employee_id
-    answers = read_data(path + "\\answers.json")
+    employee = read_data(path + "\\profile.json")
+    old_answer_summary = read_txt(path + "\\answer_summary.txt")
 
-    timestamp = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-    new_answer = {
-        "employee_id": employee_id,
-        "question_id": question_id,
-        "result": result,
-        "answered_at": timestamp,
-    }
-
-    answers.append(new_answer)
-    write_data(path + "\\answers.json", answers)
+    answer_summary = get_answer_summary(employee=employee, curr_question=question, result=result, old_answer_summary=old_answer_summary)
+    write_data(path + "\\answer_summary.txt", answer_summary)
 
     return jsonify({"status": "ok"})
 
