@@ -1,10 +1,9 @@
 {
-  "question": "Considering your role in infrastructure architecture and cloud migration projects, how confident do you feel about the support you receive to address security challenges in your work?",
+  "question": "How comfortable are you with designing and implementing Infrastructure as Code (IaC) pipelines for cloud environments?",
   "options": [
-    "Not confident at all",
-    "Somewhat confident",
-    "Confident",
-    "Very confident",
-    "Extremely confident"
+    "Very comfortable, can lead IaC pipeline design",
+    "Confident, capable of implementing and troubleshooting",
+    "Moderately comfortable, require some guidance",
+    "Not comfortable, need training to improve"
   ]
 }

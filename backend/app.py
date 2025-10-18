@@ -119,7 +119,7 @@ def generate_technical_question(employee_path, employee, summary):
         print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
 
         # store the general question into the file
-        write_data(employee_path + "\\question.json", new_question)
+        write_data(employee_path + "\\question.json", json.loads(new_question))
 
     except FileNotFoundError:
         print("Error: 'prompts\\technical_question_prompt.txt' not found.")
@@ -146,12 +146,10 @@ def generate_general_question(employee_path, employee, summary):
     """
 
     try:
-        print("step 1")
         # read the general_question_prompt
         with open("prompts\\general_question_prompt.txt", 'r') as file:
             template_string = file.read()
 
-        print("step 2")
         # fit in employee_data and historical_summary, generate data
         prompt = template_string.format(employee=employee, summary=summary)
         data = {
@@ -161,7 +159,6 @@ def generate_general_question(employee_path, employee, summary):
             ],
         }
 
-        print("step 3")
         # get AI-generated general question
         # Use json.dumps() to convert the Python dictionary to a JSON string for the body
         response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
@@ -169,17 +166,12 @@ def generate_general_question(employee_path, employee, summary):
         response_json = response.json()
         new_question = response_json['choices'][0]['message']['content']
 
-        print("step 4")
         # internal usage (for debugging)
         print("\n--- Model Response ---")
         print(new_question)
         print("\n--- Usage Info ---")
         print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
 
-        print("step 5")
-        # store the general question into the file
-        print(jsonify(new_question))
-        print(new_question)
         write_data(employee_path + "\\question.json", json.loads(new_question))
 
     except FileNotFoundError:
@@ -217,8 +209,6 @@ def get_question():
     if not question:
         print("No questions available to select.")
         return jsonify({"error": "No questions available"}), 404
-    
-    print(question)
 
     return jsonify(question)
 
@@ -249,7 +239,7 @@ def submit_answer():
     summary = str(new_answer)
     if is_technical_question >= 0.5:
         print("generate technical question")
-        generate_general_question(path, employee, summary)
+        generate_technical_question(path, employee, summary)
     else:
         print("generate general question")
         generate_general_question(path, employee, summary)

@@ -58,6 +58,7 @@ export default function App() {
     if (!currentEmployee || !currentQuestion) return
     setIsLoading(true)
     setError(null)
+    handleLogout()
 
     try {
       const res = await fetch('http://127.0.0.1:5000/submit-answer', {
