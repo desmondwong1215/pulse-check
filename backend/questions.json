@@ -1,7 +1,0 @@
-[
-  { "id": 1, "type": "Technical", "skill_tag": "Python", "text": "In Python, what is the difference between a list and a tuple?", "options": ["Correct", "Incorrect"] },
-  { "id": 2, "type": "Technical", "skill_tag": "Security", "text": "What is the purpose of a 'salt' when hashing passwords?", "options": ["Correct", "Incorrect"] },
-  { "id": 3, "type": "General", "skill_tag": "Sentiment", "text": "How challenging did you find your work this week?", "options": ["1 (Easy)", "2", "3", "4", "5 (Very Hard)"] },
-  { "id": 4, "type": "General", "skill_tag": "Career", "text": "Are you interested in mentorship opportunities in the next quarter?", "options": ["Yes", "No", "Maybe"] },
-  { "id": 5, "type": "Technical", "skill_tag": "Python", "text": "What is a decorator in Python?", "options": ["Correct", "Incorrect"] }
-]

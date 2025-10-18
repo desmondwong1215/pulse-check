@@ -192,7 +192,7 @@ def get_ai_question(employee, all_questions, answer_history):
 
 @app.route("/get-employees", methods=["GET"])
 def get_employees():
-    employees = read_data("employees.json")
+    employees = read_data("data\\employees.json")
     return jsonify(employees)
 
 
@@ -202,19 +202,21 @@ def get_question():
     employee_id = body.get("employee_id")
     if not employee_id:
         return jsonify({"error": "employee_id is required"}), 400
+    
+    path = "data\\employees\\" + employee_id
+    employee = read_data(path + "\\profile.json")
+    questions = read_data(path + "\\question.json")
+    answers = read_data(path + "\\answers.json")
 
-    employees = read_data("employees.json")
-    questions = read_data("questions.json")
-    answers = read_data("answers.json")
-
-    employee = next((e for e in employees if e.get("id") == employee_id), None)
     if not employee:
+        print(f"Employee ID {employee_id} not found in profile data.")
         return jsonify({"error": "Employee not found"}), 404
 
     employee_history = [a for a in answers if a.get("employee_id") == employee_id]
 
     next_question = get_ai_question(employee, questions, employee_history)
     if not next_question:
+        print("No questions available to select.")
         return jsonify({"error": "No questions available"}), 404
 
     return jsonify(next_question)
@@ -230,7 +232,8 @@ def submit_answer():
     if not employee_id or question_id is None or result is None:
         return jsonify({"error": "employee_id, question_id, and result are required"}), 400
 
-    answers = read_data("answers.json")
+    path = "data\\employees\\" + employee_id
+    answers = read_data(path + "\\answers.json")
 
     timestamp = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     new_answer = {
@@ -241,7 +244,7 @@ def submit_answer():
     }
 
     answers.append(new_answer)
-    write_data("answers.json", answers)
+    write_data(path + "\\answers.json", answers)
 
     return jsonify({"status": "ok"})
 

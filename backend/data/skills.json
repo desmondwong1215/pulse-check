@@ -1,0 +1,150 @@
+{
+  "Automation and Robotics": [
+    "Engineering Systems",
+    "Robotic Process Automation"
+  ],
+  "Business Development": [
+    "Business Analysis",
+    "Transactional"
+  ],
+  "Commercial": [
+    "Account Management"
+  ],
+  "Corporate Affairs": [
+    "Public Relations Management"
+  ],
+  "Data & AI: Data Engineering": [
+    "Data Model Architecture",
+    "Data Model Design"
+  ],
+  "Data & AI: Data Science": [
+    "Data Understanding & Preparation",
+    "Data Visualisation",
+    "Descriptive / Diagnostics Analytics",
+    "Machine Learning & AI",
+    "Predictive / Prescriptive Analytics"
+  ],
+  "Data & AI: Data Strategy & Management": [
+    "Data Strategy & Management: Data Governance"
+  ],
+  "Data & AI: Optimization": [
+    "Relational database/datagrid design and management",
+    "System architecture design and understanding of PaaS and SaaS"
+  ],
+  "Data & AI: RPA": [
+    "RPA Goverance & Process Design",
+    "RPA Software Development"
+  ],
+  "Data & AI: Simulation": [
+    "3D Model Visualization",
+    "Descriptive/diagnostics data analytics",
+    "Simulation model design & development"
+  ],
+  "Engineering: Civil Engineering": [
+    "Building Maintenance and Facilities Management",
+    "Green Building Technologies and Management",
+    "Planning and Development"
+  ],
+  "Engineering: Electrical and Electronics Engineering": [
+    "Battery Chemistry and Management",
+    "Battery Technology"
+  ],
+  "Engineering: Mechanical Engineering": [
+    "Heavy Machineries and Port Equipment Maintenance and Management",
+    "Hydraulic and Pneumatics Systems",
+    "Internal Combustion Engine",
+    "Welding Technology"
+  ],
+  "Engineering: Port Engineering": [
+    "Port Engineering & Management"
+  ],
+  "Engineering: Systems Engineering": [
+    "Condition Based Monitoring",
+    "Maintenance Strategy",
+    "Reliability Engineering"
+  ],
+  "Finance": [
+    "Capital Management",
+    "Corporate Finance",
+    "Finance Business Partnering",
+    "Financial Planning and Analysis",
+    "Investment",
+    "Portfolio Management",
+    "Tax",
+    "Treasury"
+  ],
+  "HSSE": [
+    "Environment Management",
+    "Occupational Health and Hygiene Management",
+    "Safety Management",
+    "Security Management"
+  ],
+  "Human Resource": [
+    "Employee Relations",
+    "HR Business Partnering",
+    "HR Operations: Global Mobility",
+    "HR Operations: HR Information System",
+    "HR Operations: Payroll",
+    "Organisational Development: Learning and Development",
+    "Organisational Development: Organisation Design and Development",
+    "Organisational Development: Talent Management and Succession Planning",
+    "Rewards: Compensation and Benefits",
+    "Talent Attraction"
+  ],
+  "Info Tech: Cybersecurity": [
+    "Cybersecurity: Cyber Defence",
+    "Cybersecurity: Cyber Governance",
+    "Cybersecurity: Cyber Technology"
+  ],
+  "Info Tech: IT Infrastructure": [
+    "IT Infrastructure: Cloud Engineering",
+    "IT Infrastructure: Data Centre and Hosting",
+    "IT Infrastructure: Database Administration",
+    "IT Infrastructure: Network and Communication",
+    "IT Infrastructure: Technical Support"
+  ],
+  "Info Tech: Product Management": [
+    "Product Life Cycle Management: Customer Experience Management - CX",
+    "Product Life Cycle Management: Product Configuration Management",
+    "Product Life Cycle Management: Product Development Lifecycle Management",
+    "Product Life Cycle Management: Vendor Management"
+  ],
+  "Legal and Corporate Secretariat": [
+    "Legal - Merger and Acquisition",
+    "Legal - Personal Data Protection - PDPA"
+  ],
+  "Operations": [
+    "Auxiliary, Governmental and Customs Management",
+    "Container Planning Management",
+    "Container Terminal Management",
+    "Multi-purpose Terminals",
+    "Resource Planning, Deployment and Support",
+    "Stowage Planning",
+    "Transhipment",
+    "Yard Operations and Planning"
+  ],
+  "Others": [
+    "Change Management and Transformation"
+  ],
+  "Procurement": [
+    "Category Management",
+    "Global Framework Agreement development",
+    "Supplier Management",
+    "Sustainable Procurement"
+  ],
+  "Supply Chain and Logistics": [
+    "4PL",
+    "CFS",
+    "Contract Logistics",
+    "Port Ecosystem"
+  ],
+  "Sustainability": [
+    "Energy Generalist",
+    "Energy Policy and Regulations",
+    "ESG policies and strategies",
+    "International Forum Green Advocacy",
+    "Maritime and Shipping Decarbonisation",
+    "Sustainable Supply Chain Management: Green Logistics",
+    "Waste Management"
+  ]
+}

@@ -92,7 +92,7 @@ export default function App() {
           <h1>Enter Employee ID</h1>
           <input
             type="text"
-            placeholder="e.g., e-001"
+            placeholder="e.g., EMP-20001"
             value={employeeIdInput}
             onChange={e => setEmployeeIdInput(e.target.value)}
             disabled={isLoading}

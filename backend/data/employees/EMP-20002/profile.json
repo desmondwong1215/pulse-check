@@ -1,0 +1,102 @@
+[
+  {
+    "employee_id": "EMP-20002",
+    "personal_info": {
+      "name": "Nur Aisyah Binte Rahman",
+      "email": "aisyah.rahman@globalpsa.com",
+      "office_location": "PSA Singapore",
+      "languages": [
+        { "language": "English", "proficiency": "Fluent" },
+        { "language": "Malay", "proficiency": "Fluent" }
+      ]
+    },
+    "employment_info": {
+      "job_title": "Cybersecurity Analyst",
+      "department": "Information Technology",
+      "unit": "Cybersecurity Operations",
+      "line_manager": "Daniel Chua",
+      "in_role_since": "2024-07-01",
+      "hire_date": "2023-01-15",
+      "last_updated": "2025-10-09"
+    },
+    "skills": [
+      {
+        "function_area": "Info Tech: Cybersecurity",
+        "specialization": "Cybersecurity Operation: Vulnerability Management",
+        "skill_name": "Vulnerability Management"
+      },
+      {
+        "function_area": "Info Tech: Cybersecurity",
+        "specialization": "Cybersecurity Operation: Network Security Management",
+        "skill_name": "Network Security Management"
+      },
+      {
+        "function_area": "Info Tech: Cybersecurity",
+        "specialization": "Cybersecurity Incident Handling: Cybersecurity Threat Intelligence and Detection",
+        "skill_name": "Cybersecurity Threat Intelligence and Detection"
+      },
+      {
+        "function_area": "Info Tech: Cybersecurity",
+        "specialization": "Cybersecurity Incident Handling: Cybersecurity Forensics",
+        "skill_name": "Cybersecurity Forensics"
+      },
+      {
+        "function_area": "Info Tech: Cybersecurity",
+        "specialization": "Cybersecurity Governance : Cybersecurity Risk Management",
+        "skill_name": "Cybersecurity Risk Management"
+      }
+    ],
+    "competencies": [
+      { "name": "IT Audit", "level": "Intermediate" },
+      { "name": "Quality Standards", "level": "Intermediate" },
+      { "name": "Incident Response Playbook Development", "level": "Beginner" }
+    ],
+    "experiences": [
+      {
+        "type": "Rotation",
+        "organization": "PSA Singapore",
+        "program": "SOC Rotation",
+        "period": { "start": "2024-07-01", "end": "2025-03-31" },
+        "focus": "SIEM tuning, alert triage, and vulnerability remediation coordination."
+      },
+      {
+        "type": "Exercise",
+        "organization": "PSA Singapore",
+        "program": "Purple Teaming",
+        "period": { "start": "2025-02-10", "end": "2025-02-28" },
+        "focus": "Attack simulation and detection gap analysis."
+      }
+    ],
+    "positions_history": [
+      {
+        "role_title": "Cybersecurity Analyst",
+        "organization": "PSA Singapore",
+        "period": { "start": "2024-07-01", "end": null },
+        "focus_areas": ["Vulnerability scanning & remediation", "Network security monitoring"],
+        "key_skills_used": ["Vulnerability Management", "Network Security Management"]
+      },
+      {
+        "role_title": "IT Graduate Trainee",
+        "organization": "PSA Singapore",
+        "period": { "start": "2023-01-15", "end": "2024-06-30" },
+        "focus_areas": ["Endpoint hardening", "Identity & access reviews"]
+      }
+    ],
+    "projects": [
+      {
+        "project_name": "Vulnerability Management Uplift",
+        "role": "Analyst",
+        "period": { "start": "2024-08-01", "end": "2025-03-31" },
+        "description": "Streamlined patching SLAs and automated reporting dashboards across business units.",
+        "outcomes": ["Mean Time To Remediate reduced by 22%", "Executive risk dashboard adopted"]
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor's Degree, Computer Engineering",
+        "institution": "National University of Singapore (NUS)",
+        "period": { "start": "2019-08-01", "end": "2023-06-30" }
+      }
+    ]
+  }
+]

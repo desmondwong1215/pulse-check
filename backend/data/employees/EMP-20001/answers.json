@@ -214,5 +214,17 @@
     "question_id": 1,
     "result": "Incorrect",
     "answered_at": "2025-10-18T06:34:00Z"
+  },
+  {
+    "employee_id": "EMP-20001",
+    "question_id": 3,
+    "result": "5 (Very Hard)",
+    "answered_at": "2025-10-18T08:09:46Z"
+  },
+  {
+    "employee_id": "EMP-20001",
+    "question_id": 3,
+    "result": "5 (Very Hard)",
+    "answered_at": "2025-10-18T08:10:34Z"
   }
 ]
