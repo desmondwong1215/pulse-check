@@ -25,8 +25,6 @@ export default function App() {
 
       if (foundEmployee) {
         setCurrentEmployee(foundEmployee)
-        console.log(foundEmployee)
-        console.log(foundEmployee.id)
         await fetchQuestion(foundEmployee.id)
       } else {
         setError('Employee ID not found.')
@@ -75,12 +73,29 @@ export default function App() {
         })
       })
       if (!res.ok) throw new Error('Failed to submit answer')
-      await delay(1000)
       setFeedback("Thank for answering the question")
+      await write_summary(result)
     } catch (err) {
       setError('Failed to submit answer.')
     } finally {
       setIsLoadingSubmission(false)
+    }
+  }
+
+  async function write_summary(result) {
+    try {
+      const res = await fetch('http://127.0.0.1:5000/write-summary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          employee_id: currentEmployee.id,
+          question: currentQuestion.question,
+          result: result
+        })
+      }) 
+      if (!res.ok) throw new Error('Failed to submit answer')
+    } catch (err) {
+      setError('Failed to submit answer.')
     }
   }
 
@@ -121,7 +136,7 @@ export default function App() {
         </div>
       )}
 
-      {currentEmployee && isLoadingSubmission && (
+      {!feedback && currentEmployee && isLoadingSubmission && (
         <div className="card">
           <h2>Submitting Answer ......</h2>
         </div>
@@ -131,7 +146,6 @@ export default function App() {
         <div className="card">
           <div className="header">
             <h2>Quiz for {currentEmployee.name}</h2>
-            <button className="secondary" onClick={handleLogout}>Logout</button>
           </div>
           <h3 className="question-text">{currentQuestion.question}</h3>
           <div className="options">
@@ -153,7 +167,8 @@ export default function App() {
         <div className="card">
           <div className="header">
             <h2>Feedback for {currentEmployee.name}</h2>
-            <button className="secondary" onClick={handleLogout}>❌</button>
+            {isLoadingSubmission && <button className="secondary" disabled>Loading...</button>}
+            {!isLoadingSubmission && <button className="secondary" onClick={handleLogout}>❌</button>}
           </div>
           <h3 className="question-text">{feedback}</h3>
           {error && <div className="error" role="alert">{error}</div>}

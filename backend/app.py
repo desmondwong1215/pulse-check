@@ -1,3 +1,5 @@
+import asyncio
+import math
 import os
 import json
 import random
@@ -96,7 +98,62 @@ def generate_technical_question(employee_path, employee, summary):
 
     except Exception as e:
         print(e)
-    
+
+def generate_skill_question(employee_path, employee, summary):
+    """
+    Use OpenAI to choose the next best skill question with few considerations:
+    1) employee data
+    2) employee historical answer summary
+    3) Skill sets required by PSA
+    """
+
+    try:
+        # read the general_question_prompt
+        with open("prompts\\skills_question_prompt.txt", 'r') as file:
+            template_string = file.read()
+
+        skills = read_data("data\\skills.json")
+
+        # fit in employee_data and historical_summary, generate data
+        prompt = template_string.format(employee=employee, summary=summary, skills=skills)
+        data = {
+            "model": MODEL,
+            "messages": [
+                {"role": "user", "content": prompt},
+            ]
+        }
+
+        # get AI-generated general question
+        # Use json.dumps() to convert the Python dictionary to a JSON string for the body
+        response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
+        response.raise_for_status() 
+        response_json = response.json()
+        new_question = response_json['choices'][0]['message']['content']
+
+        # internal usage (for debugging)
+        print("\n--- Model Response ---")
+        print(new_question)
+        print("\n--- Usage Info ---")
+        print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
+
+        # store the general question into the file
+        write_data(employee_path + "\\question.json", json.loads(new_question))
+
+    except FileNotFoundError:
+        print("Error: 'prompts\\technical_question_prompt.txt' not found.")
+
+    except requests.exceptions.HTTPError as e:
+        print(f"\n❌ HTTP Error: {e}")
+        if response.status_code == 401:
+            print("ACTION REQUIRED: Check your Ocp-Apim-Subscription-Key for the Azure API Gateway.")
+        else:
+            print(f"Server response:\n{response.text}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"\n❌ An error occurred during the network request: {e}")
+
+    except Exception as e:
+        print(e)
 
 def generate_general_question(employee_path, employee, summary):
     """
@@ -244,23 +301,40 @@ def submit_answer():
     if not employee_id or question is None or result is None:
         print("Missing required fields in the request body.")
         return jsonify({"error": "employee_id, question, and result are required"}), 400
+    return jsonify({"status": "ok"})
 
+@app.route("/write-summary", methods=["POST"])
+def write_summary():
+    body = request.get_json(silent=True) or {}
+    employee_id = body.get("employee_id")
+    question = body.get("question")
+    result = body.get("result")
+
+    if not employee_id or question is None or result is None:
+        print("Missing required fields in the request body.")
+        return jsonify({"error": "employee_id, question, and result are required"}), 400
+    
     path = "data\\employees\\" + employee_id
     employee = read_data(path + "\\profile.json")
     old_answer_summary = read_txt(path + "\\answer_summary.txt")
+    answer_summary = get_answer_summary(employee, question, result, old_answer_summary)
 
-    answer_summary = get_answer_summary(employee=employee, curr_question=question, result=result, old_answer_summary=old_answer_summary)
     write_data(path + "\\answer_summary.txt", answer_summary)
+    generate_question(path, employee, answer_summary)
+    return jsonify({"status": "ok"})
 
-    is_technical_question = random.random()
-    summary = answer_summary
-    if is_technical_question >= 0.5:
+def generate_question(path, employee, summary):
+    question_type = math.floor(random.random() * 3)
+    print(question_type)
+    if question_type == 0:
         print("generate technical question")
         generate_technical_question(path, employee, summary)
+    elif question_type == 1:
+        print("generate skill question")
+        generate_skill_question(path, employee, summary)
     else:
         print("generate general question")
         generate_general_question(path, employee, summary)
-
     return jsonify({"status": "ok"})
 
 if __name__ == "__main__":
