@@ -1,0 +1,118 @@
+[
+  {
+    "employee_id": "EMP-20001",
+    "personal_info": {
+      "name": "Samantha Lee",
+      "email": "samantha.lee@globalpsa.com",
+      "office_location": "PSA Singapore",
+      "languages": [
+        { "language": "English", "proficiency": "Fluent" },
+        { "language": "Korean", "proficiency": "Intermediate" }
+      ]
+    },
+    "employment_info": {
+      "job_title": "Cloud Solutions Architect",
+      "department": "Information Technology",
+      "unit": "Infrastructure Architecture & Cloud",
+      "line_manager": "Victor Tan",
+      "in_role_since": "2022-07-01",
+      "hire_date": "2016-03-15",
+      "last_updated": "2025-10-09"
+    },
+    "skills": [
+      {
+        "function_area": "Info Tech: Infrastructure",
+        "specialization": "Cloud Computing: Cloud Architecture",
+        "skill_name": "Cloud Architecture"
+      },
+      {
+        "function_area": "Info Tech: Infrastructure",
+        "specialization": "Cloud Computing: Cloud DevOps & Automation",
+        "skill_name": "Cloud DevOps & Automation"
+      },
+      {
+        "function_area": "Info Tech: Infrastructure",
+        "specialization": "Cloud Computing: Securing Cloud Infrastructure",
+        "skill_name": "Securing Cloud Infrastructure"
+      },
+      {
+        "function_area": "Info Tech: Infrastructure",
+        "specialization": "Infrastructure Architecture: Infrastructure Design, Analysis & Architecture",
+        "skill_name": "Infrastructure Design, Analysis & Architecture"
+      },
+      {
+        "function_area": "Info Tech: Infrastructure",
+        "specialization": "Infrastructure Architecture: Network Architecture",
+        "skill_name": "Network Architecture"
+      },
+      {
+        "function_area": "Info Tech: Infrastructure",
+        "specialization": "Systems & Middleware Management: Middleware & Web Servers",
+        "skill_name": "Middleware & Web Servers"
+      },
+      {
+        "function_area": "Info Tech: IT Governance & Strategy",
+        "specialization": "Enterprise Architecture",
+        "skill_name": "Enterprise Architecture"
+      }
+    ],
+    "competencies": [
+      { "name": "Stakeholder & Partnership Management", "level": "Advanced" },
+      { "name": "Change & Transformation Management", "level": "Advanced" },
+      { "name": "Technology Management & Innovation", "level": "Intermediate" }
+    ],
+    "experiences": [
+      {
+        "type": "Program",
+        "organization": "PSA Singapore",
+        "program": "Hybrid Cloud Migration",
+        "period": { "start": "2022-08-01", "end": "2023-12-31" },
+        "focus": "Architecture lead for hybrid cloud; IaC pipelines; zero-trust controls."
+      },
+      {
+        "type": "Rotation",
+        "organization": "PSA Singapore",
+        "program": "Infrastructure Automation",
+        "period": { "start": "2019-01-01", "end": "2021-12-31" },
+        "focus": "Containerization and CI/CD enablement for enterprise workloads."
+      }
+    ],
+    "positions_history": [
+      {
+        "role_title": "Cloud Solutions Architect",
+        "organization": "PSA Singapore",
+        "period": { "start": "2022-07-01", "end": null },
+        "focus_areas": ["Hybrid cloud design", "Security-by-design", "Cost optimization"],
+        "key_skills_used": ["Cloud Architecture", "Securing Cloud Infrastructure", "Cloud DevOps & Automation"]
+      },
+      {
+        "role_title": "Senior Systems Engineer",
+        "organization": "PSA Singapore",
+        "period": { "start": "2019-01-01", "end": "2022-06-30" },
+        "focus_areas": ["Containerization", "Infrastructure automation"]
+      },
+      {
+        "role_title": "Systems Engineer",
+        "organization": "PSA Singapore",
+        "period": { "start": "2016-03-15", "end": "2018-12-31" },
+        "focus_areas": ["On-prem server operations", "Network administration"]
+      }
+    ],
+    "projects": [
+      {
+        "project_name": "Hybrid Cloud Migration Initiative",
+        "role": "Lead Architect",
+        "period": { "start": "2022-08-01", "end": "2023-12-31" },
+        "description": "Lift-and-shift plus replatform; IaC pipelines; zero-trust access for critical services.",
+        "outcomes": ["30% infrastructure cost reduction", "99.95% service availability achieved"]
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor's Degree, Computer Engineering",
+        "institution": "National University of Singapore (NUS)",
+        "period": { "start": "2012-08-01", "end": "2016-06-30" }
+      }
+    ]
+  }
+]
