@@ -129,7 +129,7 @@ export default function App() {
 
   async function handleSummaryLogin(e) {
     e?.preventDefault?.()
-    setIsLoading(true)
+    setIsLoadingQuestion(true)
     setError(null)
 
     try {
@@ -144,16 +144,16 @@ export default function App() {
         await fetchSummary(foundEmployee.id)
       } else {
         setError('Employee ID not found.')
-        setIsLoading(false)
+        setIsLoadingQuestion(false)
       }
     } catch (err) {
       setError('Unable to reach backend. Is it running on port 5000?')
-      setIsLoading(false)
+      setIsLoadingQuestion(false)
     }
   }
 
   async function fetchSummary(employeeId) {
-    setIsLoading(true)
+    setIsLoadingQuestion(true)
     setError(null)
     try {
       const res = await fetch('http://127.0.0.1:5000/get-summary', {
@@ -170,7 +170,7 @@ export default function App() {
     } catch (err) {
       setError('Failed to fetch summary.')
     } finally {
-      setIsLoading(false)
+      setIsLoadingQuestion(false)
     }
   }
 
