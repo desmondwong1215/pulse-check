@@ -1,0 +1,5 @@
+[
+  { "id": "e-001", "name": "Alex Johnson", "job_title": "Software Engineer II", "department": "Engineering" },
+  { "id": "e-002", "name": "Samira Chen", "job_title": "Product Designer", "department": "Design" },
+  { "id": "e-003", "name": "David Lee", "job_title": "HR Coordinator", "department": "People Ops" }
+]
