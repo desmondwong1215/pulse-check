@@ -1,9 +1,10 @@
 {
-  "question": "Considering your role as a Cloud Solutions Architect, do you feel the organization provides sufficient support and resources to help you successfully lead complex cloud transformation projects?",
+  "question": "How comfortable do you feel in designing and implementing Infrastructure as Code (IaC) solutions for complex cloud environments?",
   "options": [
-    "Yes, I have the resources I need",
-    "Sometimes, but there's room for improvement",
-    "No, I often face resource or support limitations",
-    "Not sure"
+    "Beginner - Need foundational training and guidance",
+    "Intermediate - Can execute IaC tasks with some support",
+    "Proficient - Confident in developing and managing IaC pipelines",
+    "Advanced - Able to lead IaC design for complex deployments",
+    "Expert - Can mentor others and optimize IaC strategies"
   ]
 }

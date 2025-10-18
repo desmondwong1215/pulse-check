@@ -108,8 +108,8 @@ def generate_general_question(employee_path, employee, summary):
 
     try:
         # read the general_question_prompt
-        with open("prompts\\general_question_prompt.txt", 'r') as file:
-            template_string = file.read()
+        template_string = read_txt("prompts\\general_question_prompt.txt")
+
 
         # fit in employee_data and historical_summary, generate data
         prompt = template_string.format(employee=employee, summary=summary)
@@ -151,6 +151,52 @@ def generate_general_question(employee_path, employee, summary):
 
     except Exception as e:
         print(e, "hello world")
+
+def generate_performance_summary(employee, summary):
+
+    try:
+        # read the general_question_prompt
+        template_string = read_txt("prompts\\performance_summary_prompt.txt")
+
+        # fit in employee_data and historical_summary, generate data
+        prompt = template_string.format(profile=employee, summary=summary)
+        data = {
+            "model": MODEL,
+            "messages": [
+                {"role": "user", "content": prompt},
+            ],
+        }
+
+        # get AI-generated general question
+        # Use json.dumps() to convert the Python dictionary to a JSON string for the body
+        response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
+        response.raise_for_status() 
+        response_json = response.json()
+        answer = response_json['choices'][0]['message']['content']
+
+        # internal usage (for debugging)
+        print("\n--- Model Response ---")
+        print(answer)
+        print("\n--- Usage Info ---")
+        print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
+
+    except FileNotFoundError:
+        print("Error: 'prompts\\performance_summary_prompt.txt' not found.")
+
+    except requests.exceptions.HTTPError as e:
+        print(f"\n❌ HTTP Error: {e}")
+        if response.status_code == 401:
+            print("ACTION REQUIRED: Check your Ocp-Apim-Subscription-Key for the Azure API Gateway.")
+        else:
+            print(f"Server response:\n{response.text}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"\n❌ An error occurred during the network request: {e}")
+
+    except Exception as e:
+        print(e)
+    
+    return answer
 
 def get_answer_summary(employee, curr_question, result, old_answer_summary):
     try:
@@ -265,6 +311,28 @@ def submit_answer():
         generate_general_question(path, employee, summary)
 
     return jsonify({"status": "ok"})
+
+@app.route("/get-summary", methods=["POST"])
+def get_answer():
+    body = request.get_json(silent=True) or {}
+    employee_id = body.get("employee_id")
+    if not employee_id:
+        return jsonify({"error": "employee_id is required"}), 400
+    
+    path = "data\\employees\\" + employee_id
+    answersSummary = read_txt(path + "\\answer_summary.txt")
+    profile = read_data(path + "\\profile.json")
+    answersSummary = generate_performance_summary(profile, answersSummary)
+
+    if not answersSummary:
+        print("No answer summary to fetch.")
+        return jsonify({"error": "No answer available"}), 404
+    
+    json_ans = {
+        "text" : answersSummary
+    }
+
+    return jsonify(json_ans)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
