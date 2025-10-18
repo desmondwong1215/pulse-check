@@ -1,9 +1,9 @@
 {
-  "question": "As a Cloud Solutions Architect with extensive expertise in Infrastructure as Code and cloud automation, how interested are you in expanding your capabilities to include Multi-Cloud Management and Orchestration to further optimize our hybrid cloud environments?",
+  "question": "During the ongoing hybrid cloud migration project, you discover that a recent Infrastructure as Code (IaC) deployment script contains a potential security misconfiguration that could expose sensitive data. You need to decide how to address this issue before proceeding further. What is the best course of action to ensure security without significantly delaying the project timeline?",
   "options": [
-    "Not interested; I prefer to focus solely on my core responsibilities.",
-    "Slightly interested; I would consider it if required by a project.",
-    "Moderately interested; I would dedicate personal time to self-study on a new adjacent tool.",
-    "Very interested; I would actively seek out training and opportunities to apply new complementary skills."
+    "Conduct a rapid manual review of the deployment script to identify and patch the security issue immediately, then continue with automated deployments.",
+    "Pause the migration temporarily to perform a comprehensive security audit of all IaC scripts, prioritizing the problematic code segments, before resuming deployment.",
+    "Implement a real-time monitoring and alert system to detect any security incidents during ongoing deployments, accepting some risk to keep the project on schedule.",
+    "Apply the latest security patches manually to the affected systems outside the IaC pipeline, then continue with the automation once verified, balancing security and speed."
   ]
 }

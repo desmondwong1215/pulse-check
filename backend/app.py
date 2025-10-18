@@ -206,7 +206,7 @@ def generate_general_question(employee_path, employee, summary):
         print(f"\n❌ An error occurred during the network request: {e}")
 
     except Exception as e:
-        print(e, "hello world")
+        print(e)
 
 def generate_performance_summary(employee, summary):
 
@@ -254,14 +254,59 @@ def generate_performance_summary(employee, summary):
     
     return answer
 
-def get_answer_summary(employee, curr_question, result, old_answer_summary):
+def generate_feedback(employee, summary, question, answer, options):
+
+    try:
+        # read the general_question_prompt
+        template_string = read_txt("prompts\\feedback_prompt.txt")
+
+        # fit in employee_data and historical_summary, generate data
+        prompt = template_string.format(employee=employee, summary=summary, question=question, answer=answer, options=options)
+        data = {
+            "model": MODEL,
+            "messages": [
+                {"role": "user", "content": prompt},
+            ],
+        }
+
+        # get AI-generated general question
+        # Use json.dumps() to convert the Python dictionary to a JSON string for the body
+        response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
+        response.raise_for_status() 
+        response_json = response.json()
+        feedback = response_json['choices'][0]['message']['content']
+
+        # internal usage (for debugging)
+        print("\n--- Model Response ---")
+        print(feedback)
+        print("\n--- Usage Info ---")
+        print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
+
+    except FileNotFoundError:
+        print("Error: 'prompts\\general_question_prompt.txt' not found.")
+
+    except requests.exceptions.HTTPError as e:
+        print(f"\n❌ HTTP Error: {e}")
+        if response.status_code == 401:
+            print("ACTION REQUIRED: Check your Ocp-Apim-Subscription-Key for the Azure API Gateway.")
+        else:
+            print(f"Server response:\n{response.text}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"\n❌ An error occurred during the network request: {e}")
+
+    except Exception as e:
+        print(e)
+    return feedback
+
+def get_answer_summary(employee, curr_question, answer, old_answer_summary):
     try:
         system_message = read_txt("prompts\\answer_summary_prompt.txt")
 
         user_message = {
             "employee": employee,
             "curr_question": curr_question,
-            "result": result,
+            "answer": answer,
             "old_answer_summary": old_answer_summary,
         }
 
@@ -336,34 +381,21 @@ def get_question():
 
     return jsonify(question)
 
-
-@app.route("/submit-answer", methods=["POST"])
-def submit_answer():
-    body = request.get_json(silent=True) or {}
-    employee_id = body.get("employee_id")
-    question = body.get("question")
-    result = body.get("result")
-
-    if not employee_id or question is None or result is None:
-        print("Missing required fields in the request body.")
-        return jsonify({"error": "employee_id, question, and result are required"}), 400
-    return jsonify({"status": "ok"})
-
 @app.route("/write-summary", methods=["POST"])
 def write_summary():
     body = request.get_json(silent=True) or {}
     employee_id = body.get("employee_id")
     question = body.get("question")
-    result = body.get("result")
+    answer = body.get("answer")
 
-    if not employee_id or question is None or result is None:
+    if not employee_id or question is None or answer is None:
         print("Missing required fields in the request body.")
-        return jsonify({"error": "employee_id, question, and result are required"}), 400
+        return jsonify({"error": "employee_id, question, and answer are required"}), 400
     
     path = "data\\employees\\" + employee_id
     employee = read_data(path + "\\profile.json")
     old_answer_summary = read_txt(path + "\\answer_summary.txt")
-    answer_summary = get_answer_summary(employee, question, result, old_answer_summary)
+    answer_summary = get_answer_summary(employee, question, answer, old_answer_summary)
 
     write_data(path + "\\answer_summary.txt", answer_summary)
     generate_question(path, employee, answer_summary)
@@ -382,6 +414,29 @@ def generate_question(path, employee, summary):
         print("generate general question")
         generate_general_question(path, employee, summary)
     return jsonify({"status": "ok"})
+
+@app.route("/get-feedback", methods=["POST"])
+def get_feedback():
+    body = request.get_json(silent=True) or {}
+    employee_id = body.get("employee_id")
+    question = body.get("question")
+    answer = body.get("answer")
+    options = body.get("options")
+    path = "data\\employees\\" + employee_id
+    employee = read_data(path + "\\profile.json")
+    summary = read_txt(path + "\\answer_summary.txt")
+    
+    feeback = generate_feedback(employee, question, answer, summary, options)
+
+    if not feeback:
+        print("Feedback generation error.")
+        return jsonify({"error": "No feedback generated"}), 404
+    
+    json_feedback = {
+        "text" : feeback
+    }
+
+    return jsonify(json_feedback)
 
 @app.route("/get-summary", methods=["POST"])
 def get_answer():
