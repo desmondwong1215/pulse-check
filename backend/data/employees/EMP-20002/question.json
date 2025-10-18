@@ -1,4 +1,10 @@
 {
-  "question": "How challenging did you find your work this week?", 
-  "options": ["1 (Easy)", "2", "3", "4", "5 (Very Hard)"] 
+  "question": "How confident do you feel about your current understanding of cloud infrastructure security to support broader cybersecurity initiatives?",
+  "options": [
+    "Not confident at all",
+    "Somewhat confident",
+    "Confident",
+    "Very confident",
+    "Extremely confident"
+  ]
 }

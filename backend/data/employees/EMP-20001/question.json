@@ -1,9 +1,9 @@
 {
-  "question": "How comfortable are you with designing and implementing Infrastructure as Code (IaC) pipelines for cloud environments?",
+  "question": "How confident do you feel in independently managing complex automation and security integration tasks within your role?",
   "options": [
-    "Very comfortable, can lead IaC pipeline design",
-    "Confident, capable of implementing and troubleshooting",
-    "Moderately comfortable, require some guidance",
-    "Not comfortable, need training to improve"
+    "Not confident at all",
+    "Somewhat confident",
+    "Confident",
+    "Very confident"
   ]
 }
