@@ -1,9 +1,9 @@
 {
-  "question": "Given your extensive experience in cloud architecture and security, how confident do you feel in leading innovative initiatives that align with your career aspirations?",
+  "question": "As a Cloud Solutions Architect with extensive expertise in Infrastructure as Code and cloud automation, how interested are you in expanding your capabilities to include Multi-Cloud Management and Orchestration to further optimize our hybrid cloud environments?",
   "options": [
-    "Not confident at all",
-    "Somewhat confident",
-    "Confident and ready for new challenges",
-    "Very confident and seeking leadership roles"
+    "Not interested; I prefer to focus solely on my core responsibilities.",
+    "Slightly interested; I would consider it if required by a project.",
+    "Moderately interested; I would dedicate personal time to self-study on a new adjacent tool.",
+    "Very interested; I would actively seek out training and opportunities to apply new complementary skills."
   ]
 }
