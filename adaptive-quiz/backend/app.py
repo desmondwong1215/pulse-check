@@ -1,28 +1,30 @@
 import os
+import requests
 import json
 from datetime import datetime, timezone
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-try:
-    from openai import OpenAI  # New SDK (>=1.0)
-except Exception:  # pragma: no cover
-    OpenAI = None  # Fallback if not installed at runtime
+# --- 1. CONFIGURATION ---
+AZURE_ENDPOINT_URL = "https://psacodesprint2025.azure-api.net/openai/deployments/gpt-4.1-nano/chat/completions?api-version=2025-01-01-preview"
 
+# IMPORTANT: Replace this placeholder with your actual Azure Subscription Key
+AZURE_SUBSCRIPTION_KEY = "d250a4fb97b840a3ad34b335806d217e"
+
+# --- 2. HEADERS (Including Authentication) ---
+HEADERS = {
+    "Content-Type": "application/json",
+    # This key authenticates access to the Azure API Management service
+    "api-key": AZURE_SUBSCRIPTION_KEY 
+}
+
+# Prefer a recent model, default to gpt-4-turbo per spec
+MODEL = "gpt-4.1-nano"
 
 app = Flask(__name__)
 CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Initialize OpenAI client if possible
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-client = None
-if OpenAI and OPENAI_API_KEY:
-    try:
-        client = OpenAI(api_key=OPENAI_API_KEY)
-    except Exception:
-        client = None
 
 
 def _path(filename: str) -> str:
@@ -92,11 +94,9 @@ def get_ai_question(employee, all_questions, answer_history):
     3) New Technical questions
     If AI is unavailable or fails, fall back to a deterministic selection.
     """
-    # Fallback immediately if no client configured
-    if client is None:
-        return _deterministic_next_question(employee, all_questions, answer_history)
 
     try:
+
         # Prepare concise context for the model
         question_summaries = [
             {
@@ -131,28 +131,49 @@ def get_ai_question(employee, all_questions, answer_history):
             "answer_history": history,
         }
 
-        # Prefer a recent model, default to gpt-4-turbo per spec
-        model = os.environ.get("OPENAI_MODEL", "gpt-4-turbo")
-
-        completion = client.chat.completions.create(
-            model=model,
-            temperature=0,
-            messages=[
+        data = {
+            "model": MODEL,
+            "messages": [
                 {"role": "system", "content": system_message},
                 {"role": "user", "content": json.dumps(user_message)},
             ],
-        )
+        }
 
-        content = (completion.choices[0].message.content or "").strip()
-
-        # Parse an integer ID from the response
-        # Prefer exact integer; fall back to extracting first integer-like token
         chosen_id = None
         try:
-            chosen_id = int(content)
+            # Use json.dumps() to convert the Python dictionary to a JSON string for the body
+            response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
+            
+            # Check for HTTP errors (like 401 Unauthorized or 404 Not Found)
+            response.raise_for_status() 
+
+            # --- 5. PROCESS RESPONSE ---
+            response_json = response.json()
+            
+            # The actual completion message is located in the 'choices' array
+            assistant_reply = response_json['choices'][0]['message']['content']
+            
+            print("\n--- Model Response ---")
+            print(assistant_reply)
+            print("\n--- Usage Info ---")
+            print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
+
+            # Parse an integer ID from the response
+            # Prefer exact integer; fall back to extracting first integer-like token
+            chosen_id = int(assistant_reply)
+
+        except requests.exceptions.HTTPError as e:
+            print(f"\n❌ HTTP Error: {e}")
+            if response.status_code == 401:
+                print("ACTION REQUIRED: Check your Ocp-Apim-Subscription-Key for the Azure API Gateway.")
+            else:
+                print(f"Server response:\n{response.text}")
+        except requests.exceptions.RequestException as e:
+            print(f"\n❌ An error occurred during the network request: {e}")
+
         except Exception:
             import re
-            m = re.search(r"\b(\d+)\b", content)
+            m = re.search(r"\b(\d+)\b", assistant_reply)
             if m:
                 chosen_id = int(m.group(1))
 
