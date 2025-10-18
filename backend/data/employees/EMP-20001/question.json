@@ -1,3 +1,10 @@
-[
-  { "id": 3, "type": "General", "skill_tag": "Sentiment", "text": "How challenging did you find your work this week?", "options": ["1 (Easy)", "2", "3", "4", "5 (Very Hard)"] }
-]
+{
+  "question": "Considering your role in infrastructure architecture and cloud migration projects, how confident do you feel about the support you receive to address security challenges in your work?",
+  "options": [
+    "Not confident at all",
+    "Somewhat confident",
+    "Confident",
+    "Very confident",
+    "Extremely confident"
+  ]
+}

@@ -118,7 +118,7 @@ export default function App() {
             <h2>Quiz for {currentEmployee.name}</h2>
             <button className="secondary" onClick={handleLogout}>Logout</button>
           </div>
-          <h3 className="question-text">{currentQuestion.text}</h3>
+          <h3 className="question-text">{currentQuestion.question}</h3>
           <div className="options">
             {currentQuestion.options?.map(opt => (
               <button

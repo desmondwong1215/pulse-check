@@ -13,9 +13,9 @@ Strictly adhere to these rules for generation:
     
 2. Employee Context
 Use the following specific data points to guide your generation and ensure maximum personalization.
-The detail of employee: 
+The detail of employee: {employee}
 
-Historical summary: 
+Historical summary: {summary}
 
 3. Generation Strategy and Logic
 Follow this prioritization logic:
@@ -30,13 +30,11 @@ Follow this prioritization logic:
 Final Output Instruction:
 Generate the single JSON object containing only the question and its options.
 
-Example:
-{
-    "text": "Do you feel your manager actively supports your professional development and training needs?",
+Example (MUST STRICTLY FOLLOW THIS FORMAT):
+    "question": "Do you feel your manager actively supports your professional development and training needs?",
     "options": [
       "No, not at all",
       "Sometimes",
       "Yes, adequately",
       "Yes, strongly"
     ]
-}

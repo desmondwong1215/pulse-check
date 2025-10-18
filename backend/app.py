@@ -84,113 +84,119 @@ def _deterministic_next_question(employee, all_questions, answer_history):
     # 4) Otherwise, just return the first question as a fallback
     return all_questions[0]
 
-# def get_technical_question(employee, all_questions, answer_history):
-
-
-
-def get_general_question(employee, all_questions, answer_history):
+def generate_technical_question(employee_path, employee, summary):
     """
-    Use OpenAI to choose the next best question by ID following the priority:
-    1) Incorrect Technical answers
-    2) New General questions
-    3) New Technical questions
-    If AI is unavailable or fails, fall back to a deterministic selection.
+    Use OpenAI to choose the next best technical question with few considerations:
+    1) employee data
+    2) employee historical answer summary
     """
 
     try:
+        # read the general_question_prompt
+        with open("prompts\\technical_question_prompt.txt", 'r') as file:
+            template_string = file.read()
 
-        # Prepare concise context for the model
-        question_summaries = [
-            {
-                "id": q.get("id"),
-                "type": q.get("type"),
-                "skill_tag": q.get("skill_tag"),
-                "text": q.get("text"),
-            }
-            for q in all_questions
-        ]
-
-        # Build a compact answer history
-        history = [
-            {
-                "question_id": a.get("question_id"),
-                "result": a.get("result"),
-                "answered_at": a.get("answered_at"),
-            }
-            for a in answer_history
-        ]
-
-        system_message = (
-            "You are an assistant that selects the next best question ID for an adaptive employee quiz. "
-            "Strictly output only the numeric question ID with no extra text. "
-            "Priorities: 1) Re-ask incorrectly answered Technical questions; 2) Ask unseen General questions; 3) Ask unseen Technical questions. "
-            "If multiple candidates qualify, pick the lowest numeric ID."
-        )
-
-        user_message = {
-            "employee": employee,
-            "all_questions": question_summaries,
-            "answer_history": history,
-        }
-
+        # fit in employee_data and historical_summary, generate data
+        prompt = template_string.format(employee=employee, summary=summary)
         data = {
             "model": MODEL,
             "messages": [
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": json.dumps(user_message)},
+                {"role": "user", "content": prompt},
             ],
         }
 
-        chosen_id = None
-        try:
-            # Use json.dumps() to convert the Python dictionary to a JSON string for the body
-            response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
-            
-            # Check for HTTP errors (like 401 Unauthorized or 404 Not Found)
-            response.raise_for_status() 
+        # get AI-generated general question
+        # Use json.dumps() to convert the Python dictionary to a JSON string for the body
+        response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
+        response.raise_for_status() 
+        response_json = response.json()
+        new_question = response_json['choices'][0]['message']['content']
 
-            # --- 5. PROCESS RESPONSE ---
-            response_json = response.json()
-            
-            # The actual completion message is located in the 'choices' array
-            assistant_reply = response_json['choices'][0]['message']['content']
-            
-            print("\n--- Model Response ---")
-            print(assistant_reply)
-            print("\n--- Usage Info ---")
-            print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
+        # internal usage (for debugging)
+        print("\n--- Model Response ---")
+        print(new_question)
+        print("\n--- Usage Info ---")
+        print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
 
-            # Parse an integer ID from the response
-            # Prefer exact integer; fall back to extracting first integer-like token
-            chosen_id = int(assistant_reply)
+        # store the general question into the file
+        write_data(employee_path + "\\question.json", new_question)
 
-        except requests.exceptions.HTTPError as e:
-            print(f"\n❌ HTTP Error: {e}")
-            if response.status_code == 401:
-                print("ACTION REQUIRED: Check your Ocp-Apim-Subscription-Key for the Azure API Gateway.")
-            else:
-                print(f"Server response:\n{response.text}")
-        except requests.exceptions.RequestException as e:
-            print(f"\n❌ An error occurred during the network request: {e}")
+    except FileNotFoundError:
+        print("Error: 'prompts\\technical_question_prompt.txt' not found.")
 
-        except Exception:
-            import re
-            m = re.search(r"\b(\d+)\b", assistant_reply)
-            if m:
-                chosen_id = int(m.group(1))
+    except requests.exceptions.HTTPError as e:
+        print(f"\n❌ HTTP Error: {e}")
+        if response.status_code == 401:
+            print("ACTION REQUIRED: Check your Ocp-Apim-Subscription-Key for the Azure API Gateway.")
+        else:
+            print(f"Server response:\n{response.text}")
 
-        if chosen_id is not None:
-            q_by_id = {q.get("id"): q for q in all_questions}
-            if chosen_id in q_by_id:
-                return q_by_id[chosen_id]
+    except requests.exceptions.RequestException as e:
+        print(f"\n❌ An error occurred during the network request: {e}")
 
-        # If parsing failed or ID not found, fall back
-        return _deterministic_next_question(employee, all_questions, answer_history)
+    except Exception as e:
+        print(e, "hello world")
 
-    except Exception:
-        # Any AI error -> deterministic fallback
-        return _deterministic_next_question(employee, all_questions, answer_history)
 
+def generate_general_question(employee_path, employee, summary):
+    """
+    Use OpenAI to choose the next best general question with few considerations:
+    1) employee data
+    2) employee historical answer summary
+    """
+
+    try:
+        print("step 1")
+        # read the general_question_prompt
+        with open("prompts\\general_question_prompt.txt", 'r') as file:
+            template_string = file.read()
+
+        print("step 2")
+        # fit in employee_data and historical_summary, generate data
+        prompt = template_string.format(employee=employee, summary=summary)
+        data = {
+            "model": MODEL,
+            "messages": [
+                {"role": "user", "content": prompt},
+            ],
+        }
+
+        print("step 3")
+        # get AI-generated general question
+        # Use json.dumps() to convert the Python dictionary to a JSON string for the body
+        response = requests.post(AZURE_ENDPOINT_URL, headers=HEADERS, data=json.dumps(data))
+        response.raise_for_status() 
+        response_json = response.json()
+        new_question = response_json['choices'][0]['message']['content']
+
+        print("step 4")
+        # internal usage (for debugging)
+        print("\n--- Model Response ---")
+        print(new_question)
+        print("\n--- Usage Info ---")
+        print(f"Total tokens used: {response_json.get('usage', {}).get('total_tokens', 'N/A')}")
+
+        print("step 5")
+        # store the general question into the file
+        print(jsonify(new_question))
+        print(new_question)
+        write_data(employee_path + "\\question.json", json.loads(new_question))
+
+    except FileNotFoundError:
+        print("Error: 'prompts\\general_question_prompt.txt' not found.")
+
+    except requests.exceptions.HTTPError as e:
+        print(f"\n❌ HTTP Error: {e}")
+        if response.status_code == 401:
+            print("ACTION REQUIRED: Check your Ocp-Apim-Subscription-Key for the Azure API Gateway.")
+        else:
+            print(f"Server response:\n{response.text}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"\n❌ An error occurred during the network request: {e}")
+
+    except Exception as e:
+        print(e, "hello world")
 
 @app.route("/get-employees", methods=["GET"])
 def get_employees():
@@ -206,55 +212,49 @@ def get_question():
         return jsonify({"error": "employee_id is required"}), 400
     
     path = "data\\employees\\" + employee_id
-    employee = read_data(path + "\\profile.json")
-    questions = read_data(path + "\\question.json")
-    answers = read_data(path + "\\answers.json")
+    question = read_data(path + "\\question.json")
 
-    if not employee:
-        print(f"Employee ID {employee_id} not found in profile data.")
-        return jsonify({"error": "Employee not found"}), 404
-
-    employee_history = [a for a in answers if a.get("employee_id") == employee_id]
-
-    is_technical_question = random.random()
-    if is_technical_question >= 0.5:
-        next_question = get_technical_question(employee, questions, employee_history)
-    else:
-        next_question = get_general_question(employee, questions, employee_history)
-
-    if not next_question:
+    if not question:
         print("No questions available to select.")
         return jsonify({"error": "No questions available"}), 404
+    
+    print(question)
 
-    return jsonify(next_question)
+    return jsonify(question)
 
 
 @app.route("/submit-answer", methods=["POST"])
 def submit_answer():
     body = request.get_json(silent=True) or {}
     employee_id = body.get("employee_id")
-    question_id = body.get("question_id")
     result = body.get("result")
 
-    if not employee_id or question_id is None or result is None:
-        return jsonify({"error": "employee_id, question_id, and result are required"}), 400
+    if not employee_id or result is None:
+        print("error: employee_id and result are required")
+        return jsonify({"error": "employee_id and result are required"}), 400
 
     path = "data\\employees\\" + employee_id
-    answers = read_data(path + "\\answers.json")
 
     timestamp = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     new_answer = {
         "employee_id": employee_id,
-        "question_id": question_id,
         "result": result,
         "answered_at": timestamp,
     }
 
-    answers.append(new_answer)
-    write_data(path + "\\answers.json", answers)
+    write_data(path + "\\answers.json", new_answer)
+
+    is_technical_question = random.random()
+    employee = json.dumps(read_data(path + "\\profile.json"), indent=4)
+    summary = str(new_answer)
+    if is_technical_question >= 0.5:
+        print("generate technical question")
+        generate_general_question(path, employee, summary)
+    else:
+        print("generate general question")
+        generate_general_question(path, employee, summary)
 
     return jsonify({"status": "ok"})
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
