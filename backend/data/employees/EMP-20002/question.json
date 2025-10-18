@@ -1,3 +1,4 @@
-[
-  { "id": 3, "type": "General", "skill_tag": "Sentiment", "text": "How challenging did you find your work this week?", "options": ["1 (Easy)", "2", "3", "4", "5 (Very Hard)"] }
-]
+{
+  "question": "How challenging did you find your work this week?", 
+  "options": ["1 (Easy)", "2", "3", "4", "5 (Very Hard)"] 
+}

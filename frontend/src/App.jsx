@@ -65,8 +65,8 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           employee_id: currentEmployee.id,
-          question: currentQuestion.text,
-          result
+          question: currentQuestion.question,
+          result: result
         })
       })
       if (!res.ok) throw new Error('Failed to submit answer')
@@ -118,7 +118,7 @@ export default function App() {
             <h2>Quiz for {currentEmployee.name}</h2>
             <button className="secondary" onClick={handleLogout}>Logout</button>
           </div>
-          <h3 className="question-text">{currentQuestion.text}</h3>
+          <h3 className="question-text">{currentQuestion.question}</h3>
           <div className="options">
             {currentQuestion.options?.map(opt => (
               <button

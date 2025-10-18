@@ -1,3 +1,9 @@
-[
-  { "id": 3, "type": "General", "skill_tag": "Sentiment", "text": "How challenging did you find your work this week?", "options": ["1 (Easy)", "2", "3", "4", "5 (Very Hard)"] }
-]
+{
+  "question": "Considering your role as a Cloud Solutions Architect, do you feel the organization provides sufficient support and resources to help you successfully lead complex cloud transformation projects?",
+  "options": [
+    "Yes, I have the resources I need",
+    "Sometimes, but there's room for improvement",
+    "No, I often face resource or support limitations",
+    "Not sure"
+  ]
+}
