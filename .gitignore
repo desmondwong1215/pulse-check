@@ -1,0 +1,3 @@
+# .gitignore file content
+# Ignore environment variable files to prevent committing secrets
+.env

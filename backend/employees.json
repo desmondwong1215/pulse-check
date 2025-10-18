@@ -1,5 +1,15 @@
 [
   { "id": "e-001", "name": "Alex Johnson", "job_title": "Software Engineer II", "department": "Engineering" },
   { "id": "e-002", "name": "Samira Chen", "job_title": "Product Designer", "department": "Design" },
-  { "id": "e-003", "name": "David Lee", "job_title": "HR Coordinator", "department": "People Ops" }
+  { "id": "e-003", "name": "David Lee", "job_title": "HR Coordinator", "department": "People Ops" },
+  { "id": "e-004", "name": "Maria Garcia", "job_title": "Senior Financial Analyst", "department": "Finance" },
+  { "id": "e-005", "name": "Ben Carter", "job_title": "Director of Marketing", "department": "Marketing" },
+  { "id": "e-006", "name": "Chloe Wong", "job_title": "Data Scientist", "department": "Data & Analytics" },
+  { "id": "e-007", "name": "Omar Hassan", "job_title": "Logistics Planner", "department": "Operations" },
+  { "id": "e-008", "name": "Sarah Miller", "job_title": "VP, Legal Affairs", "department": "Legal" },
+  { "id": "e-009", "name": "Raj Patel", "job_title": "Junior Software Developer", "department": "Engineering" },
+  { "id": "e-010", "name": "Emily White", "job_title": "Customer Success Manager", "department": "Sales & Support" },
+  { "id": "e-011", "name": "Kenji Tanaka", "job_title": "Cybersecurity Specialist", "department": "IT Infrastructure" },
+  { "id": "e-012", "name": "Aisha Khan", "job_title": "Lead UX Researcher", "department": "Design" },
+  { "id": "e-013", "name": "Gabriel Mendez", "job_title": "Supply Chain Associate", "department": "Operations" }
 ]

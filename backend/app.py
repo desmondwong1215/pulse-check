@@ -1,31 +1,29 @@
 import os
-import requests
 import json
+import requests
 from datetime import datetime, timezone
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-
-# --- 1. CONFIGURATION ---
-AZURE_ENDPOINT_URL = "https://psacodesprint2025.azure-api.net/openai/deployments/gpt-4.1-nano/chat/completions?api-version=2025-01-01-preview"
-
-# IMPORTANT: Replace this placeholder with your actual Azure Subscription Key
-AZURE_SUBSCRIPTION_KEY = "d250a4fb97b840a3ad34b335806d217e"
-
-# --- 2. HEADERS (Including Authentication) ---
-HEADERS = {
-    "Content-Type": "application/json",
-    # This key authenticates access to the Azure API Management service
-    "api-key": AZURE_SUBSCRIPTION_KEY 
-}
-
-# Prefer a recent model, default to gpt-4-turbo per spec
-MODEL = "gpt-4.1-nano"
 
 app = Flask(__name__)
 CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+load_dotenv()
+
+AZURE_ENDPOINT_URL = os.getenv("AZURE_ENDPOINT_URL")
+AZURE_SUBSCRIPTION_KEY = os.getenv("AZURE_SUBSCRIPTION_KEY")
+MODEL = os.getenv("MODEL")
+
+if not (AZURE_SUBSCRIPTION_KEY and AZURE_ENDPOINT_URL and MODEL):
+    print("Error: AZURE_API_KEY not found in environment variables.")
+
+HEADERS = {
+    "Content-Type": "application/json",
+    "api-key": AZURE_SUBSCRIPTION_KEY 
+}
 
 def _path(filename: str) -> str:
     return os.path.join(BASE_DIR, filename)

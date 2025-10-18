@@ -1,7 +1,340 @@
 [
-  { "id": 1, "type": "Technical", "skill_tag": "Python", "text": "In Python, what is the difference between a list and a tuple?", "options": ["Correct", "Incorrect"] },
-  { "id": 2, "type": "Technical", "skill_tag": "Security", "text": "What is the purpose of a 'salt' when hashing passwords?", "options": ["Correct", "Incorrect"] },
-  { "id": 3, "type": "General", "skill_tag": "Sentiment", "text": "How challenging did you find your work this week?", "options": ["1 (Easy)", "2", "3", "4", "5 (Very Hard)"] },
-  { "id": 4, "type": "General", "skill_tag": "Career", "text": "Are you interested in mentorship opportunities in the next quarter?", "options": ["Yes", "No", "Maybe"] },
-  { "id": 5, "type": "Technical", "skill_tag": "Python", "text": "What is a decorator in Python?", "options": ["Correct", "Incorrect"] }
+  {
+    "id": 1,
+    "type": "General",
+    "skill_tag": "Org Feedback",
+    "text": "Do you feel your manager actively supports your professional development and training needs?",
+    "options": [
+      "No, not at all",
+      "Sometimes",
+      "Yes, adequately",
+      "Yes, strongly"
+    ]
+  },
+  {
+    "id": 2,
+    "type": "General",
+    "skill_tag": "Recognition",
+    "text": "How often do you receive helpful, constructive feedback related to your performance?",
+    "options": [
+      "Rarely or Never",
+      "Quarterly or Less",
+      "Monthly or Bimonthly",
+      "Weekly or Bi-Weekly"
+    ]
+  },
+  { 
+    "id": 3, 
+    "type": "General", 
+    "skill_tag": "Sentiment", 
+    "text": "How challenging did you find your work this week?", 
+    "options": [
+      "1 (Easy)", 
+      "2", 
+      "3", 
+      "4", 
+      "5 (Very Hard)"
+    ] 
+  },
+  { 
+    "id": 4, 
+    "type": "General", 
+    "skill_tag": "Career", 
+    "text": "Are you interested in mentorship opportunities in the next quarter?", 
+    "options": [
+      "Yes", 
+      "No", 
+      "Maybe"
+    ] 
+  },
+  {
+    "id": 5,
+    "type": "General",
+    "skill_tag": "Job Satisfaction",
+    "text": "How clearly defined are the goals and priorities for your current tasks?",
+    "options": [
+      "1 (Not Clear)",
+      "2",
+      "3",
+      "4",
+      "5 (Very Clear)"
+    ]
+  },
+  {
+    "id": 6,
+    "type": "General",
+    "skill_tag": "Well-being",
+    "text": "How would you rate your ability to switch off from work outside of office hours this week?",
+    "options": [
+      "1 (Very Poor)",
+      "2",
+      "3",
+      "4",
+      "5 (Very Good)"
+    ]
+  },
+  {
+    "id": 7,
+    "type": "General",
+    "skill_tag": "Career",
+    "text": "Which of the following career paths are you most interested in exploring next?",
+    "options": [
+      "Management/Leadership",
+      "Technical Expert/Specialist",
+      "Cross-Functional Role",
+      "Stay in Current Role",
+      "Unsure"
+    ]
+  },
+  {
+    "id": 8,
+    "type": "General",
+    "skill_tag": "Org Feedback",
+    "text": "Do you feel you have the necessary tools and technology to perform your job efficiently?",
+    "options": [
+      "Strongly Disagree",
+      "Disagree",
+      "Neutral",
+      "Agree",
+      "Strongly Agree"
+    ]
+  },
+  {
+    "id": 9,
+    "type": "General",
+    "skill_tag": "Job Satisfaction",
+    "text": "How meaningful do you find the impact of your current role on the company's overall mission?",
+    "options": [
+      "1 (Not Meaningful)",
+      "2",
+      "3",
+      "4",
+      "5 (Very Meaningful)"
+    ]
+  },
+  {
+    "id": 10,
+    "type": "General",
+    "skill_tag": "Recognition",
+    "text": "Have you received adequate recognition for your efforts over the last month?",
+    "options": [
+      "Yes, regularly",
+      "Yes, occasionally",
+      "No, not really"
+    ]
+  },
+  {
+    "id": 11,
+    "type": "General",
+    "skill_tag": "Well-being",
+    "text": "Do you feel your current workload is manageable?",
+    "options": [
+      "Always Too High",
+      "Often Too High",
+      "Just Right",
+      "Often Too Low",
+      "Always Too Low"
+    ]
+  },
+  {
+    "id": 12,
+    "type": "General",
+    "skill_tag": "Org Feedback",
+    "text": "How comfortable do you feel providing honest feedback to your direct manager?",
+    "options": [
+      "1 (Not Comfortable)",
+      "2",
+      "3",
+      "4",
+      "5 (Very Comfortable)"
+    ]
+  },
+  {
+    "id": 13,
+    "type": "General",
+    "skill_tag": "Career",
+    "text": "If a new short-term project was available to help you build a new skill, would you be interested?",
+    "options": [
+      "Definitely Yes",
+      "Maybe, depending on the time commitment",
+      "No, I am too busy"
+    ]
+  },
+  {
+    "id": 14,
+    "type": "General",
+    "skill_tag": "Job Satisfaction",
+    "text": "On a scale of 1 to 5, how satisfied are you with your work-life balance currently?",
+    "options": [
+      "1 (Very Dissatisfied)",
+      "2",
+      "3",
+      "4",
+      "5 (Very Satisfied)"
+    ]
+  },
+  {
+    "id": 15,
+    "type": "General",
+    "skill_tag": "Org Feedback",
+    "text": "How effectively do different teams or departments collaborate to achieve company goals?",
+    "options": [
+      "Very Ineffectively",
+      "Ineffectively",
+      "Neutral",
+      "Effectively",
+      "Very Effectively"
+    ]
+  },
+  {
+    "id": 16,
+    "type": "General",
+    "skill_tag": "Job Satisfaction",
+    "text": "Are you able to use your strongest skills and abilities in your current role?",
+    "options": [
+      "Rarely or Never",
+      "Sometimes",
+      "Most of the Time",
+      "Always or Almost Always"
+    ]
+  },
+  {
+    "id": 17,
+    "type": "General",
+    "skill_tag": "Career",
+    "text": "Do you feel you have easy access to the learning and development resources you need?",
+    "options": [
+      "Strongly Disagree",
+      "Disagree",
+      "Neutral",
+      "Agree",
+      "Strongly Agree"
+    ]
+  },
+  {
+    "id": 18,
+    "type": "General",
+    "skill_tag": "Org Feedback",
+    "text": "How effectively are changes and new strategies communicated from senior leadership to your team?",
+    "options": [
+      "Very Poorly",
+      "Poorly",
+      "Neutral",
+      "Well",
+      "Very Well"
+    ]
+  },
+  {
+    "id": 19,
+    "type": "General",
+    "skill_tag": "Job Satisfaction",
+    "text": "Do you feel included and valued as a member of your immediate team?",
+    "options": [
+      "Strongly Disagree",
+      "Disagree",
+      "Neutral",
+      "Agree",
+      "Strongly Agree"
+    ]
+  },
+  {
+    "id": 20,
+    "type": "General",
+    "skill_tag": "Career",
+    "text": "How well do you understand the specific steps needed for you to achieve a promotion in your current department?",
+    "options": [
+      "Not At All Clear",
+      "Slightly Clear",
+      "Moderately Clear",
+      "Quite Clear",
+      "Very Clear"
+    ]
+  },
+  {
+    "id": 21,
+    "type": "General",
+    "skill_tag": "Well-being",
+    "text": "Do you have enough time set aside during your workday for necessary breaks and mental rest?",
+    "options": [
+      "Rarely or Never",
+      "Sometimes",
+      "Most of the Time",
+      "Always or Almost Always"
+    ]
+  },
+  {
+    "id": 22,
+    "type": "General",
+    "skill_tag": "Recognition",
+    "text": "How clearly do you understand what 'success' looks like in your role for the current quarter?",
+    "options": [
+      "Very Unclear",
+      "Unclear",
+      "Neutral",
+      "Clear",
+      "Very Clear"
+    ]
+  },
+  {
+    "id": 23,
+    "type": "General",
+    "skill_tag": "Org Feedback",
+    "text": "Do you feel your personal values align with PSA's stated corporate values?",
+    "options": [
+      "Strongly Disagree",
+      "Disagree",
+      "Neutral",
+      "Agree",
+      "Strongly Agree"
+    ]
+  },
+  {
+    "id": 24,
+    "type": "General",
+    "skill_tag": "Job Satisfaction",
+    "text": "How satisfied are you with the level of autonomy (control over how you do your work) you have?",
+    "options": [
+      "Very Dissatisfied",
+      "Dissatisfied",
+      "Neutral",
+      "Satisfied",
+      "Very Satisfied"
+    ]
+  },
+  {
+    "id": 25,
+    "type": "General",
+    "skill_tag": "Career",
+    "text": "Have you had a meaningful career discussion with your manager in the last three months?",
+    "options": [
+      "Yes",
+      "No",
+      "Unsure/Not Applicable"
+    ]
+  },
+  {
+    "id": 26,
+    "type": "General",
+    "skill_tag": "Well-being",
+    "text": "When facing a difficult work problem, do you feel comfortable asking a colleague for help?",
+    "options": [
+      "Rarely or Never",
+      "Sometimes",
+      "Most of the Time",
+      "Always or Almost Always"
+    ]
+  },
+  {
+    "id": 27,
+    "type": "General",
+    "skill_tag": "Recognition",
+    "text": "Do you feel that performance metrics (KPIs) are applied fairly across your team/unit?",
+    "options": [
+      "Strongly Disagree",
+      "Disagree",
+      "Neutral",
+      "Agree",
+      "Strongly Agree"
+    ]
+  }
 ]

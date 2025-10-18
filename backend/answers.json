@@ -214,5 +214,29 @@
     "question_id": 1,
     "result": "Incorrect",
     "answered_at": "2025-10-18T06:34:00Z"
+  },
+  {
+    "employee_id": "e-001",
+    "question_id": 2,
+    "result": "Correct",
+    "answered_at": "2025-10-18T07:02:06Z"
+  },
+  {
+    "employee_id": "e-001",
+    "question_id": 4,
+    "result": "Maybe",
+    "answered_at": "2025-10-18T07:02:19Z"
+  },
+  {
+    "employee_id": "e-002",
+    "question_id": 4,
+    "result": "Yes",
+    "answered_at": "2025-10-18T07:03:37Z"
+  },
+  {
+    "employee_id": "e-001",
+    "question_id": 23,
+    "result": "Strongly Agree",
+    "answered_at": "2025-10-18T07:39:49Z"
   }
 ]
