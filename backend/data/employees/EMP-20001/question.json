@@ -1,10 +1,9 @@
 {
-  "question": "You are leading the integration of real-time monitoring and alert systems into your hybrid cloud architecture to enhance security awareness. During testing, you discover potential performance impacts on critical workloads due to increased monitoring overhead. As the Cloud Solutions Architect, how should you proceed to balance security objectives with operational performance?",
+  "question": "As a Cloud Solutions Architect with expertise in cloud architecture, DevOps, and infrastructure security, how interested are you in developing skills in Cloud Security Posture Management (CSPM) to further strengthen the security and compliance of our cloud environments?",
   "options": [
-    "Prioritize security by temporarily disabling some monitoring features on the critical workloads until lightweight, optimized alerting solutions are developed.",
-    "Implement a phased rollout of monitoring tools, starting with non-critical systems, to evaluate performance impacts and adjust configurations before full deployment.",
-    "Accelerate deployment of all monitoring features to ensure comprehensive security coverage, accepting short-term performance degradation with plans to optimize later.",
-    "Engage stakeholders to determine which performance metrics are most critical and tailor monitoring scope accordingly, possibly reducing some alerts for essential workloads.",
-    "Postpone the deployment until a comprehensive performance impact assessment is completed, ensuring minimal disruption at the expense of delayed security enhancements."
+    "Not interested; I prefer to focus on my current areas of expertise.",
+    "Slightly interested; I might consider it if there's a clear practical application.",
+    "Moderately interested; I am open to training and exploring CSPM tools on a case-by-case basis.",
+    "Very interested; I would actively pursue learning opportunities and certifications in CSPM to enhance our cloud security posture."
   ]
 }
