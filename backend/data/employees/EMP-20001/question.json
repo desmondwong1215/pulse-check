@@ -1,9 +1,9 @@
 {
-  "question": "Given your expertise in cloud architecture, automation, and security, how interested are you in expanding your skills to include container orchestration platforms like Kubernetes or OpenShift to further strengthen your infrastructure automation capabilities?",
+  "question": "As a Cloud Solutions Architect focusing on infrastructure automation, you are preparing to implement Infrastructure as Code (IaC) pipelines for a critical hybrid cloud environment. During a review, you notice a potential security vulnerability in the current scripting standards, which could lead to configuration drift if not addressed promptly. Given tight project deadlines and your expertise in security-by-design, which approach would you prioritize to ensure both security and timely delivery?",
   "options": [
-    "Not interested; I prefer to focus solely on my current responsibilities.",
-    "Slightly interested; I would consider learning if it directly supported a specific project.",
-    "Moderately interested; I am open to exploring these platforms through self-study and incremental learning.",
-    "Very interested; I would actively pursue formal training and hands-on experience to master container orchestration tools."
+    "Implement an immediate security scan on the IaC scripts, then proceed with deployment while planning a detailed remediation phase post-deployment.",
+    "Temporarily disable the affected security controls to facilitate faster deployment, planning to re-enable and verify them immediately after the rollout.",
+    "Hold back deployment until comprehensive security fixes are integrated and validated, even if this delays the project schedule, prioritizing security integrity.",
+    "Collaborate with the security team to develop and embed automated security validation checks directly into the IaC pipeline, then proceed with the deployment."
   ]
 }

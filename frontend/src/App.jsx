@@ -198,7 +198,7 @@ export default function App() {
     <div className="container">
       {!currentEmployee && (
         <form className="card" onSubmit={handleLogin}>
-          <h1>PSA Login</h1>
+          <h1>PSA Check In</h1>
           <h1>Enter Employee ID</h1>
           <input
             type="text"
@@ -210,9 +210,9 @@ export default function App() {
             autoFocus
           />
           <button type="submit" disabled={isLoadingQuestion || !employeeIdInput.trim()}>
-            {isLoadingQuestion ? 'Checking…' : 'Start Quiz'}
+            {isLoadingQuestion ? 'Checking…' : 'Check In'}
           </button>
-          <button className="secondary" onClick={handleViewSummary}>View Summary</button>
+          <button className="secondary" onClick={handleViewSummary}>View Performance</button>
           {error && <div className="error" role="alert">{error}</div>}
         </form>
       )}
@@ -289,7 +289,7 @@ export default function App() {
 
       {currentEmployee && isLoadingQuestion && (
         <div className="card">
-          <h2>Loading summary…</h2>
+          <h2>Loading performance…</h2>
         </div>
       )}
 

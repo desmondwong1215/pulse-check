@@ -1,10 +1,9 @@
 {
-  "question": "How confident do you feel about your current understanding of cloud infrastructure security to support broader cybersecurity initiatives?",
+  "question": "How confident do you feel about your current knowledge in designing and implementing cloud security architectures?",
   "options": [
     "Not confident at all",
     "Somewhat confident",
     "Confident",
-    "Very confident",
-    "Extremely confident"
+    "Very confident"
   ]
 }
