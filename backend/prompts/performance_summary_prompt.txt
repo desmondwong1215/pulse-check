@@ -17,11 +17,10 @@ Predict Leadership Potential: Evaluate the employee's behavioral, performance, a
 
 Support Inclusive Workforce Development: Suggest targeted mentorship opportunities, such as positioning the employee as a mentor or connecting them with a senior leader. Highlight how the company's feedback and recognition systems can be used to celebrate achievements and address concerns.
 
-Your final output must be a single multi-line Python string in normal text without using bold notations, enclosed in triple quotes ("""). The message should be addressed directly to the employee by name, written in a supportive and professional tone.
+Your final output must be a single multi-line Python string in normal text without using bold notations. The message should be addressed directly to the employee by name, written in a supportive and professional tone.
 
 Example Output Format:
 
-"""
 Hi [Employee Name],
 
 I'm your AI Career Coach, and I'm here to support you. I've reviewed your recent check-in and want to help you navigate your career path and address the challenges you're facing.
@@ -30,4 +29,3 @@ I'm your AI Career Coach, and I'm here to support you. I've reviewed your recent
 
 Best regards,
 Your PSA AI Career Coach
-"""

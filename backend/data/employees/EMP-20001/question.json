@@ -1,9 +1,9 @@
 {
-  "question": "As a Cloud Solutions Architect with expertise in cloud architecture, DevOps, and infrastructure security, how interested are you in developing skills in Cloud Security Posture Management (CSPM) to further strengthen the security and compliance of our cloud environments?",
+  "question": "Given your expertise in cloud architecture, automation, and security, how interested are you in expanding your skills to include container orchestration platforms like Kubernetes or OpenShift to further strengthen your infrastructure automation capabilities?",
   "options": [
-    "Not interested; I prefer to focus on my current areas of expertise.",
-    "Slightly interested; I might consider it if there's a clear practical application.",
-    "Moderately interested; I am open to training and exploring CSPM tools on a case-by-case basis.",
-    "Very interested; I would actively pursue learning opportunities and certifications in CSPM to enhance our cloud security posture."
+    "Not interested; I prefer to focus solely on my current responsibilities.",
+    "Slightly interested; I would consider learning if it directly supported a specific project.",
+    "Moderately interested; I am open to exploring these platforms through self-study and incremental learning.",
+    "Very interested; I would actively pursue formal training and hands-on experience to master container orchestration tools."
   ]
 }

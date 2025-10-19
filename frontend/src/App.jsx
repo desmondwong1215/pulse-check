@@ -255,7 +255,7 @@ export default function App() {
           <div className="header">
             <h2>Feedback for {currentEmployee.name}</h2>
             {isLoadingSubmission && <button className="secondary" disabled><CircularProgress size="1.5rem" /></button>}
-            {!isLoadingSubmission && <button className="secondary" onClick={handleLogout}>❌</button>}
+            {!isLoadingSubmission && <button className="secondary" onClick={handleLogout}>Leave</button>}
           </div>
           <h3 className="question-text">{feedback}</h3>
           {error && <div className="error" role="alert">{error}</div>}
@@ -296,10 +296,10 @@ export default function App() {
       {currentEmployee && !isLoadingQuestion && currentSummary && (
         <div className="card">
           <div className="header">
-            <h2>Performance summary for {currentEmployee.id}</h2>
+            <h2>Performance summary for {currentEmployee.name}</h2>
             <button className="secondary" onClick={handleLogout}>Logout</button>
           </div>
-          <h3 className="question-text">{currentSummary}</h3>
+          <h3 className="summary-content">{currentSummary}</h3>
           {error && <div className="error" role="alert">{error}</div>}
         </div>
       )}
