@@ -1,128 +1,115 @@
 # Pulse Check ✔️
 
-A simple, lightweight, and extensible service for monitoring the health and status of your applications, services, and infrastructure.
+An intelligent employee engagement and development platform, powered by AI to support PSA's multi-generational workforce.
+
+
 
 ## 📝 Overview
 
-Pulse Check provides a straightforward way to perform periodic health checks on your critical systems. Whether it's checking an HTTP endpoint, a database connection, or a custom service, Pulse Check can be configured to monitor it and notify you when things go wrong.
+Pulse Check is an advanced AI-driven system designed specifically for PSA to foster a dynamic and supportive work environment. It moves beyond traditional reviews by engaging employees through daily check-ins and check-outs. These interactions use personalized, microlearning-focused questions to gather continuous feedback.
 
-The goal is to offer a minimal but powerful tool that is easy to set up, configure, and integrate into any development workflow.
+Over time, Pulse Check analyzes this data to provide deep insights, generate performance summaries, and support employee growth, well-being, and career development. By leveraging these data-driven insights, Pulse Check helps build a more engaged, inclusive, and future-ready workforce aligned with PSA’s core values.
 
 ## ✨ Features
 
-- **Configurable Health Checks:** Easily define what you want to monitor via a simple configuration file.
+* **Daily Check-ins & Microlearning:** Generates personalized questions during daily employee check-ins and check-outs, focusing on continuous feedback and microlearning.
+* **Long-Term Employee Analysis:** Gathers sufficient information over time to analyze employee progress and provide insights that support the platform's main purpose.
+* **Personalised Career Pathways:** Recommends tailored career tracks, internal mobility options, and upskilling or reskilling plans based on individual aspirations, strengths, and identified skill gaps.
+* **AI-Powered Conversational Support:** Provides continuous, confidential support for employee engagement, mental well-being, and professional development through an intelligent conversational interface.
+* **Predictive Leadership Analytics:** Utilizes behavioral, performance, and engagement data to identify and predict future leadership potential within the organization.
+* **Inclusive Workforce Development:** Fosters an inclusive culture with targeted mentorship programs, enhanced digital accessibility, and a robust feedback and recognition system that celebrates PSA’s values.
 
-- **Multiple Check Types:** Support for common checks like HTTP/HTTPS endpoints, TCP ports, and database connections.
-
-- **Extensible:** Add your own custom check types with a simple plugin architecture.
-
-- **Notifications:** (Coming Soon) Integrated notifications for Slack, email, and webhooks.
-
-- **Simple Status Dashboard:** A clean, minimal UI to view the current status of all monitored services.
-
-- **Lightweight:** Designed to have a small footprint and minimal dependencies.
 
 ## 🚀 Getting Started
 
-Follow these instructions to get a local copy up and running for development and testing.
+Follow these instructions to get a local copy of the platform up and running for development and testing.
 
 ### Prerequisites
 
-- Node.js (v14 or later)
-
-- npm / yarn
+* Node.js (v14 or later)
+* npm / yarn
+* Python
 
 ### Installation
 
-1. **Clone the repository:**
+1.  **Clone the repository:**
+    ```sh
+    git clone [https://github.com/desmondwong1215/pulse-check.git](https://github.com/desmondwong1215/pulse-check.git)
+    cd pulse-check
+    ```
 
-   \`\`\`
-   git clone [https://github.com/desmondwong1215/pulse-check.git](https://github.com/desmondwong1215/pulse-check.git)
-   cd pulse-check
-   \`\`\`
+2.  **Install dependencies:**
+    ```sh
+    npm install
+    # or
+    yarn install
+    ```
 
-2. **Install dependencies:**
-
-   \`\`\`
-   npm install
-
-   # or
-
-   yarn install
-   \`\`\`
-
-3. **Configure your checks:**
-
-   - Duplicate the example configuration file:
-
-     \`\`\`
-     cp config.example.json config.json
-     \`\`\`
-
-   - Modify \`config.json\` to add the services you want to monitor. See the [Configuration](https://www.google.com/search?q=%23-configuration) section below for details.
+3.  **Configure the environment:**
+    * Duplicate the example configuration file:
+        ```sh
+        cp config.example.json config.json
+        ```
+    * Modify `config.json` to set up the necessary modules and integrations. See the [Configuration](#-configuration) section below for details.
 
 ### Running the Application
 
-- **Start the monitoring service:**
-
-  \`\`\`
-  npm start
-  \`\`\`
-
-- The service will begin performing checks based on your \`config.json\` file.
+* **Start the development server:**
+    ```sh
+    npm start
+    ```
+* The application will launch, running the modules defined in your configuration.
 
 ## ⚙️ Configuration
 
-You can configure the services to monitor by editing the \`config.json\` file. Here is an example structure:
+You can enable and configure the platform's core modules by editing the \`config.json\` file. Here is an example structure:
 
-\`\`\`
+```json
 {
-"checks": [
-{
-"id": "my-api",
-"name": "My Production API",
-"type": "http",
-"interval": "30s",
-"target": "[https://api.example.com/health](https://api.example.com/health)"
-},
-{
-"id": "my-database",
-"name": "PostgreSQL Database",
-"type": "tcp",
-"interval": "1m",
-"target": "db.example.com:5432"
+  "tenantId": "PSA-Global",
+  "modules": [
+    {
+      "name": "CareerPathways",
+      "enabled": true,
+      "options": {
+        "syncFrequency": "24h"
+      }
+    },
+    {
+      "name": "ConversationalAI",
+      "enabled": true,
+      "provider": "PulseCheckAI"
+    },
+    {
+      "name": "LeadershipAnalytics",
+      "enabled": true,
+      "dataSources": ["performance", "engagement"]
+    },
+    {
+      "name": "InclusiveDevelopment",
+      "enabled": true
+    }
+  ]
 }
-]
-}
-\`\`\`
+```
 
-- \`id\`: A unique identifier for the check.
+## 🛠️ Tech Stack
 
-- \`name\`: A human-readable name for the service.
-
-- \`type\`: The type of check to perform (\`http\`, \`tcp\`, etc.).
-
-- \`interval\`: How often to perform the check (e.g., \`10s\`, \`5m\`, \`1h\`).
-
-- \`target\`: The endpoint, host, or resource to check.
+* **Frontend:** React, JSX
+* **Backend:** Python
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://www.google.com/search?q=https://github.com/desmondwong1215/pulse-check/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/desmondwong1215/pulse-check/issues).
 
 To contribute:
 
-1. **Fork** the project.
-
-2. Create your feature branch (\`git checkout -b feature/AmazingFeature\`).
-
-3. **Commit** your changes (\`git commit -m 'Add some AmazingFeature'\`).
-
-4. **Push** to the branch (\`git push origin feature/AmazingFeature\`).
-
-5. Open a **Pull Request**.
+1.  **Fork** the project.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  **Commit** your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  **Push** to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a **Pull Request**.
 
 ## 📜 License
 
-This project is distributed under the MIT License. See \`LICENSE\` for more information.
-`;
+This project is distributed under the MIT License. See `LICENSE` for more information.
