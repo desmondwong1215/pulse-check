@@ -55,13 +55,14 @@ Follow these instructions to get a local copy of the platform up and running for
     # Install Python dependencies
     pip install -r requirements.txt
     ```
-    *Note: A `requirements.txt` file is present in the `backend\` directory.*
+    *Note: A `requirements.txt` file is present in the `backend` directory.*
 
 4.  **Frontend Setup:**
     ```sh
-    # Navigate back to the root directory from /backend
+    # Navigate back to the root directory from /backend, then navigate to frontend directory
     cd ..
-
+    cd frontend
+    
     # Install npm packages
     npm install
     # or
@@ -73,7 +74,7 @@ Follow these instructions to get a local copy of the platform up and running for
 This application requires both the backend and frontend servers to be running simultaneously in separate terminals.
 
 1.  **Run the Backend Server:**
-    * In your first terminal, navigate to the \`backend\` directory.
+    * In your first terminal, navigate to the `backend` directory.
     * Make sure your virtual environment is activated.
     * Start the Python server:
     ```sh
@@ -83,12 +84,12 @@ This application requires both the backend and frontend servers to be running si
 
 2.  **Run the Frontend Server:**
     * Open a **new terminal**.
-    * Navigate to the project's root directory.
+    * Navigate to the project's `frontend` directory.
     * Start the React development server:
     ```sh
-    npm start
+    npm run dev
     ```
-    * The application frontend will launch in your browser, typically at http://localhost:3000.
+    * The application frontend will launch in your browser, typically at http://localhost:5173.
 
 
 
