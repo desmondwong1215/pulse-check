@@ -169,8 +169,10 @@ export default function App() {
     setIsLoading(false)
   }
 
+  // ... (your component's imports and state logic go here)
+
   const renderQuiz = (
-    <div className="container">
+    <>
       {!currentEmployee && (
         <form className="card" onSubmit={handleLogin}>
           <h1>PSA Employee Check In</h1>
@@ -219,11 +221,11 @@ export default function App() {
           {error && <div className="error" role="alert">{error}</div>}
         </div>
       )}
-    </div>
+    </>
   )
 
   const renderSummary = (
-    <div className="container">
+    <>
       {!currentEmployee && (
         <form className="card" onSubmit={handleSummaryLogin}>
           <h1>Performance Summary</h1>
@@ -256,12 +258,15 @@ export default function App() {
           <div className="header">
             <h2>Performance summary for {currentEmployee.id}</h2>
             <button className="secondary" onClick={handleLogout}>Logout</button>
+          </div>          
+          <div className="summary-content">
+            {currentSummary}
           </div>
-          <h3 className="question-text">{currentSummary}</h3>
+
           {error && <div className="error" role="alert">{error}</div>}
         </div>
       )}
-    </div>
+    </>
   )
 
   return (

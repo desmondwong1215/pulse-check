@@ -1,125 +1,290 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+/* styles.css (Kiosk Version) */
 
+/* --- Import a Friendly Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* --- CSS Variables (Theme) --- */
 :root {
-  --bg: #0b0f16;
-  --panel: #131b26;
-  --text: #e6edf3;
-  --muted: #9fb0c3;
-  --primary: #4ea1ff;
-  --primary-600: #2a7bdf;
-  --danger: #ff6b6b;
+  /* A professional blue (PSA) + a warm orange (Pulse) */
+  --primary-color: #005A9C;
+  --accent-color: #E65100;
+  --secondary-color: #6c757d;
+  
+  --bg-color: #f8f9fa;       /* Very light, slightly warm grey */
+  --card-bg: #ffffff;
+  --text-color: #212529;
+  --text-light: #495057;
+  --border-color: #dee2e6;
+  --error-color: #D32F2F;
+  --error-bg: rgba(211, 47, 47, 0.05);
+
+  --border-radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --transition-speed: 0.2s;
 }
 
-* { box-sizing: border-box; }
+/* --- Global & Body Styles --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html, body, #root { height: 100%; }
+/* --- MODIFICATION --- */
+/* Set base font size to 18px for Kiosk readability. */
+/* All 'rem' units will now be relative to this. */
+html {
+  font-size: 18px; 
+}
 
 body {
-  margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  background: radial-gradient(1000px 600px at 50% -20%, #102033 0%, var(--bg) 60%);
-  color: var(--text);
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  
+  /* Center the content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
 }
 
+/* --- Main Layout --- */
 .container {
-  min-height: 100%;
-  display: grid;
-  place-items: center;
-  padding: 32px;
+  width: 100%;
+  /* --- MODIFICATION --- */
+  /* Increased width for the larger elements */
+  max-width: 650px;
 }
 
+/* Base style for all content boxes */
 .card {
-  width: min(800px, 92vw);
-  background: var(--panel);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2.5rem 3rem; /* Increased padding */
+  
+  /* Smoothly fade in */
+  animation: fadeIn 0.5s ease-out;
+  
+  /* Use flex for easy spacing */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Increased gap */
 }
 
-h1, h2, h3 {
-  margin: 0 0 18px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-h1 { font-size: 2rem; letter-spacing: 0.5px; }
-h2 { font-size: 1.4rem; white-space: pre-wrap; color: var(--muted); font-weight: 600; }
-h3 { font-size: 1.25rem; font-weight: 600; }
+/* --- Typography --- */
+h1 {
+  font-size: 2rem; /* Was 1.75rem */
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.4rem; /* Was 1.25rem */
+  color: var(--text-light);
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+h3.question-text {
+  font-size: 1.3rem; /* Was 1.2rem */
+  font-weight: 500;
+  text-align: center;
+  min-height: 70px; /* Prevents layout jump */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Form Elements (Login) --- */
+form.card::after {
+  content: 'Powered by PulseCheck AI';
+  display: block;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  margin-top: 1rem;
+  opacity: 0.8;
+}
 
 input[type="text"] {
   width: 100%;
-  padding: 16px 18px;
-  font-size: 1.1rem;
-  background: #0e1520;
-  color: var(--text);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  /* --- MODIFICATION --- */
+  /* Larger padding for easier touch */
+  padding: 1rem 1.2rem; 
+  font-size: 1.1rem; /* Slightly larger font inside input */
+  font-family: inherit;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 input[type="text"]:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(78,161,255,0.15);
-}
-
-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  appearance: none;
-  border: none;
   outline: none;
-  cursor: pointer;
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, var(--primary), var(--primary-600));
-  color: white;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  margin-top: 16px;
-  min-width: 160px;
-  transition: transform 0.04s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  box-shadow: 0 8px 16px rgba(78,161,255,0.25);
+  border-color: var(--primary-color);
+  /* A warm, friendly focus ring */
+  box-shadow: 0 0 0 4px rgba(0, 90, 156, 0.15);
 }
 
-button:hover { filter: brightness(1.05); }
-button:active { transform: translateY(1px); }
-button:disabled { opacity: 0.6; cursor: not-allowed; }
+/* --- Buttons --- */
+button {
+  width: 100%;
+  /* --- MODIFICATION --- */
+  /* Significantly larger padding for touch targets */
+  padding: 1.1rem 1.5rem; 
+  font-size: 1.1rem; /* Was 1rem */
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--accent-color); /* Primary action is warm */
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
 
+/* Interactive hover */
+button:hover:not(:disabled) {
+  background-color: #d04900; /* Darker orange */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(230, 81, 0, 0.3);
+}
+
+/* Secondary button style */
 button.secondary {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.14);
-  color: var(--text);
+  background-color: transparent;
+  color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  font-weight: 500;
   box-shadow: none;
 }
 
+button.secondary:hover:not(:disabled) {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Disabled state */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* --- Quiz & Summary Specifics --- */
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-
-.question-text {
-  margin: 10px 0 16px;
-  white-space: pre-wrap;
-}
-
-.options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.error {
-  margin-top: 14px;
-  color: var(--danger);
-  font-weight: 600;
-}
-
-form.card > button {
+  align-items: center;
   width: 100%;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.25rem;
+}
+
+.header h2 {
+  text-align: left;
+  margin-bottom: 0;
+  font-size: 1.25rem; /* Was 1.1rem */
+  color: var(--text-color);
+}
+
+/* Make logout button smaller, but still touch-friendly */
+.header button.secondary {
+  width: auto; 
+  /* --- MODIFICATION --- */
+  padding: 0.6rem 1rem; /* Was 0.4rem 0.8rem */
+  font-size: 1rem; /* Was 0.9rem */
+}
+
+/* Container for quiz options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* Quiz option buttons */
+.options button {
+  background-color: var(--card-bg);
+  color: var(--primary-color);
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  text-align: left;
+  /* --- MODIFICATION --- */
+  /* Ensure large padding for options */
+  padding: 1.1rem 1.5rem;
+}
+
+/* Warm, interactive hover for options */
+.options button:hover:not(:disabled) {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+  /* Slide-in effect for interaction */
+  transform: translateX(5px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Error Message --- */
+.error {
+  color: var(--error-color);
+  background-color: var(--error-bg);
+  border: 1px solid rgba(211, 47, 47, 0.2);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.25rem; /* Increased padding */
+  text-align: center;
+  font-weight: 500;
+}
+
+/* --- Added for Summary View --- */
+.summary-content {
+  font-size: 1.1rem; /* Was 1rem */
+  color: var(--text-light);
+  line-height: 1.7;
+  white-space: pre-wrap; /* This respects newlines in your summary text */
+  background-color: var(--bg-color);
+  padding: 1.25rem; /* Increased padding */
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 700px) { /* Widened breakpoint */
+  body {
+    /* Allow scrolling on small screens */
+    align-items: flex-start;
+  }
+
+  .card {
+    padding: 2rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
 }
