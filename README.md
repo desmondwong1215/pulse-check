@@ -55,7 +55,7 @@ Follow these instructions to get a local copy of the platform up and running for
     # Install Python dependencies
     pip install -r requirements.txt
     ```
-    *Note: Assumes a `requirements.txt` file is present in the \`backend\` directory.*
+    *Note: A `requirements.txt` file is present in the `backend\` directory.*
 
 4.  **Frontend Setup:**
     ```sh
