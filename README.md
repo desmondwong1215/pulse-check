@@ -130,19 +130,3 @@ You can enable and configure the platform's core modules by editing the \`config
 
 * **Frontend:** React, JSX
 * **Backend:** Python
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/desmondwong1215/pulse-check/issues).
-
-To contribute:
-
-1.  **Fork** the project.
-2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
-3.  **Commit** your changes (`git commit -m 'Add some AmazingFeature'`).
-4.  **Push** to the branch (`git push origin feature/AmazingFeature`).
-5.  Open a **Pull Request**.
-
-## 📜 License
-
-This project is distributed under the MIT License. See `LICENSE` for more information.
