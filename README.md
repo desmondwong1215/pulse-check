@@ -28,9 +28,9 @@ Follow these instructions to get a local copy of the platform up and running for
 
 * Node.js (v14 or later)
 * npm / yarn
-* Python
+* Python 3.8+ and pip
 
-### Installation
+### Installation & Setup
 
 1.  **Clone the repository:**
     ```sh
@@ -38,27 +38,59 @@ Follow these instructions to get a local copy of the platform up and running for
     cd pulse-check
     ```
 
-2.  **Install dependencies:**
+2.  **Backend Setup:**
     ```sh
+    # Navigate to the backend directory
+    cd backend
+
+    # Create and activate a virtual environment
+    # On Windows:
+    python -m venv venv
+    .\venv\Scripts\activate
+    
+    # On macOS/Linux:
+    # python3 -m venv venv
+    # source venv/bin/activate
+
+    # Install Python dependencies
+    pip install -r requirements.txt
+    ```
+    *Note: Assumes a `requirements.txt` file is present in the \`backend\` directory.*
+
+4.  **Frontend Setup:**
+    ```sh
+    # Navigate back to the root directory from /backend
+    cd ..
+
+    # Install npm packages
     npm install
     # or
     yarn install
     ```
 
-3.  **Configure the environment:**
-    * Duplicate the example configuration file:
-        ```sh
-        cp config.example.json config.json
-        ```
-    * Modify `config.json` to set up the necessary modules and integrations. See the [Configuration](#-configuration) section below for details.
-
 ### Running the Application
 
-* **Start the development server:**
+This application requires both the backend and frontend servers to be running simultaneously in separate terminals.
+
+1.  **Run the Backend Server:**
+    * In your first terminal, navigate to the \`backend\` directory.
+    * Make sure your virtual environment is activated.
+    * Start the Python server:
+    ```sh
+    python app.py
+    ```
+    * The backend should now be running on its configured port (e.g., http://localhost:5000).
+
+2.  **Run the Frontend Server:**
+    * Open a **new terminal**.
+    * Navigate to the project's root directory.
+    * Start the React development server:
     ```sh
     npm start
     ```
-* The application will launch, running the modules defined in your configuration.
+    * The application frontend will launch in your browser, typically at http://localhost:3000.
+
+
 
 ## ⚙️ Configuration
 
